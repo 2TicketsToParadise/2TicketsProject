@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../assets/images/robot-dev.png')
+                  ? require('../assets/images/nike4.gif')
                   : require('../assets/images/robot-prod.png')
               }
               style={styles.welcomeImage}
@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
             </View>
 
             <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
+              This is a change. Change this text and your app will automatically reload.
             </Text>
           </View>
 
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   tabBarInfoText: {
-    fontSize: 17,
+    fontSize: 38,
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
   },
