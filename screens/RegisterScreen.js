@@ -5,7 +5,6 @@ import { ImageBackground, Image, Alert,
   TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 import { Platform } from 'react-native';
-//import { TestComponent } from './../components/AppComponents';
 import bgImage from '../assets/images/background.png';
 import logo from '../assets/images/logo.png';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,18 +15,18 @@ export default class LoginScreen extends React.Component {
   
   //Top banner
   static navigationOptions = {
-    title: 'Login',
+    title: 'SignUp',
   };
   //Show/Hide password
   constructor() {
     super()
     this.state = {
       showPass: true,
-      press: false
-    };
-    state = {
+      press: false,
+
       userName: '',
       password: '',
+      verifyPwd: '',
     };
 
   }
@@ -36,13 +35,13 @@ export default class LoginScreen extends React.Component {
     console.log(this.state.userName);
     console.log(this.state.password);
 
-    Alert.alert("Alert", "Button pressed "+viewId);
+        if (this.state.password == this.state.verifyPwd) {
+            Alert.alert("Alert", "Button pressed "+viewId)
+    } else {
+            Alert.alert("Alert", "Password's do not match! Try again!")
+    }
   }
 
-  // //
-  // onPress(){
-  //   console.log('Clicked Sign Up')
-  // }
 
   showPass = () => {
     if (this.state.press == false) {
@@ -98,7 +97,7 @@ export default class LoginScreen extends React.Component {
               <TextInput 
                 style={styles.input}
                 placeholder={'Password'}
-                returnKeyType='go'
+                returnKeyType='next'
                 autoCorrect={false}
                 autoCapitalize='none'
                 secureTextEntry= {this.state.showPass}
@@ -113,15 +112,34 @@ export default class LoginScreen extends React.Component {
               </TouchableOpacity>
             </View> 
             
-            {/* Create Account navigate */}
-            <View style= {styles.signUpContainer}>
-              <Text style= {styles.text} onPress={() => navigate('SignUp')}>
-              Create an account!</Text> 
-            </View>
+            <View style={styles.inputContainer}>
+              {/* Platform.OS === 'ios' ? something : andriodSomething */}
+              <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
+                size= {28} color={'rgba(255, 255, 255, 0.7)'} 
+                style={styles.inputIcon}/>
+
+              <TextInput 
+                style={styles.input}
+                placeholder={'Re-Enter Password'}
+                returnKeyType='go'
+                autoCorrect={false}
+                autoCapitalize='none'
+                secureTextEntry= {this.state.showPass}
+                placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                underlineColorAndroid='transparent'
+                onChangeText={(verifyPwd) => this.setState({verifyPwd})}
+              />
+              {/* Show/Hide password */}
+              <TouchableOpacity onPress={this._onPressButton} onPress= {this.showPass.bind(this)} style={styles.btnEye}>
+                    {/* Platform.OS === 'ios' ? something : andriodSomething */}
+                <Icon name = {this.state.press == false ? (Platform.OS === 'ios' ? 'ios-eye-outline' : 'md-eye') : (Platform.OS === 'ios' ? 'ios-eye-off-outline' : 'md-eye-off')} size = {26} color={'rgba(255, 255, 255, 0.7)'} style={styles.btneye} />
+              </TouchableOpacity>
+            </View> 
 
             <TouchableOpacity onPress={this._onPressButton} 
                   style={styles.btnLogin}>
-                   <Text style={styles.text} onPress={() => this.onClickListener('Login')}>Login</Text>
+                   <Text style={styles.text} onPress={() => this.onClickListener('Welcome To The Exercise Tracker')}
+                    onPress={() => navigate ('Profile')}>Sign Up!</Text>
             </TouchableOpacity> 
           </View>
         </TouchableWithoutFeedback>

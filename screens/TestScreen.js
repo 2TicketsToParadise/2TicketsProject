@@ -12,11 +12,11 @@ export default class SignUpView extends Component {
 
   constructor(props) {
     super(props);
-    state = {
-      firstName: '',
-      lastName: '',
-      email   : '',
-      password: '',
+      this.state = {
+        firstName: '',
+        lastName: '',
+        email   : '',
+        password: '',
     }
   }
 
@@ -31,57 +31,71 @@ export default class SignUpView extends Component {
 
   render() {
     return (
-      <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
-        <KeyboardAvoidingView behavior="padding" style={styles.container} >
-          <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
-              <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/> 
-                <TextInput style={styles.inputs}
-                    placeholder="First Name"
-                    keyboardType="email-address"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(firstName) => this.setState({firstName})}/>
-              </View>
 
-              <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
-                <TextInput style={styles.inputs}
-                    placeholder="Last Name"
-                    keyboardType="email-address"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(lastName) => this.setState({lastName})}/>
-              </View>
+      <View style={styles.container}>
+        <Text>Test Screen</Text>
+      </View>
+      // <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
+      //   <KeyboardAvoidingView behavior="padding" style={styles.container} >
+      //     <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
+      //       <View style={styles.container}>
+      //         <View style={styles.inputContainer}>
+      //           <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/> 
+      //           <TextInput style={styles.inputs}
+      //               placeholder="First Name"
+      //               keyboardType="email-address"
+      //               underlineColorAndroid='transparent'
+      //               onChangeText={(firstName) => this.setState({firstName})}/>
+      //         </View>
 
-              <View style={styles.inputContainer}>
-                <Icon name= {Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'} 
-                  size= {28} color={'rgba(255, 255, 255, 0.7)'} 
-                  style={styles.inputIcon}/>
-                <TextInput style={styles.inputs}
-                    placeholder="Email"
-                    keyboardType="email-address"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(email) => this.setState({email})}/>
-              </View>
+      //         <View style={styles.inputContainer}>
+      //           <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+      //           <TextInput style={styles.inputs}
+      //               placeholder="Last Name"
+      //               keyboardType="email-address"
+      //               underlineColorAndroid='transparent'
+      //               onChangeText={(lastName) => this.setState({lastName})}/>
+      //         </View>
+
+      //         <View style={styles.inputContainer}>
+      //           <Icon name= {Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'} 
+      //             size= {28} color={'rgba(255, 255, 255, 0.7)'} 
+      //             style={styles.inputIcon}/>
+      //           <TextInput style={styles.inputs}
+      //               placeholder="Height"
+      //               underlineColorAndroid='transparent'
+      //               onChangeText={(height) => this.setState({height})}/>
+      //         </View>
               
-              <View style={styles.inputContainer}>
-                <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
-                    size= {28} color={'rgba(255, 255, 255, 0.7)'} 
-                    style={styles.inputIcon}/>
-                <TextInput style={styles.inputs}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    underlineColorAndroid='transparent'
-                    onChangeText={(password) => this.setState({password})}/>
-              </View>
+      //         <View style={styles.inputContainer}>
+      //           <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
+      //               size= {28} color={'rgba(255, 255, 255, 0.7)'} 
+      //               style={styles.inputIcon}/>
+      //           <TextInput style={styles.inputs}
+      //               placeholder="Weight"
+      //               underlineColorAndroid='transparent'
+      //               onChangeText={(weight) => this.setState({weight})}/>
+      //         </View>
 
-              <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
-                <Text style={styles.signUpText}>Sign up</Text>
-              </TouchableHighlight>
-            </View>
-          </TouchableWithoutFeedback>      
-        </KeyboardAvoidingView>
-      </ImageBackground>
+      //         <View style={styles.inputContainer}>
+      //           <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
+      //               size= {28} color={'rgba(255, 255, 255, 0.7)'} 
+      //               style={styles.inputIcon}/>
+      //           <TextInput style={styles.inputs}
+      //               placeholder="Gender"
+      //               underlineColorAndroid='transparent'
+      //               onChangeText={(gender) => this.setState({gender})}/>
+      //         </View>
+
+              
+
+      //         <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
+      //           <Text style={styles.signUpText}>Sign up</Text>
+      //         </TouchableHighlight>
+      //       </View>
+      //     </TouchableWithoutFeedback>      
+      //   </KeyboardAvoidingView>
+      // </ImageBackground>
     );
   }
 }
@@ -139,5 +153,6 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: 'black',
+    fontSize: 24,
   }
 });
