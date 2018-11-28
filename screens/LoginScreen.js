@@ -73,7 +73,7 @@ export default class LoginScreen extends React.Component {
             <View style={styles.inputContainer}>
               {/* <View style={{paddingBottom: 10}}> */}
                     {/* Platform.OS === 'ios' ? something : andriodSomething */}
-              <Icon name= {Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} 
+              <Icon name= {'md-person'}
                 size= {28} color={'rgba(255, 255, 255, 0.7)'} 
                 style={styles.inputIcon}/>
               <TextInput 
@@ -91,7 +91,7 @@ export default class LoginScreen extends React.Component {
 
             <View style={styles.inputContainer}>
               {/* Platform.OS === 'ios' ? something : andriodSomething */}
-              <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
+              <Icon name= {'md-lock'}
                 size= {28} color={'rgba(255, 255, 255, 0.7)'} 
                 style={styles.inputIcon}/>
 
@@ -109,7 +109,7 @@ export default class LoginScreen extends React.Component {
               {/* Show/Hide password */}
               <TouchableOpacity onPress={this._onPressButton} onPress= {this.showPass.bind(this)} style={styles.btnEye}>
                     {/* Platform.OS === 'ios' ? something : andriodSomething */}
-                <Icon name = {this.state.press == false ? (Platform.OS === 'ios' ? 'ios-eye-outline' : 'md-eye') : (Platform.OS === 'ios' ? 'ios-eye-off-outline' : 'md-eye-off')} size = {26} color={'rgba(255, 255, 255, 0.7)'} style={styles.btneye} />
+                <Icon name = {this.state.press == false ? ('md-eye') : ('md-eye-off')} size = {26} color={'rgba(255, 255, 255, 0.7)'} style={styles.btneye} />
               </TouchableOpacity>
             </View> 
             
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
 
   logoText: {
-    color: 'orange',
+    color: 'white',
     fontSize: 34,
     textAlign: 'center',
     fontWeight: '500',
