@@ -2,12 +2,11 @@ import React from 'react';
 import { ImageBackground, Image, Alert,
   StyleSheet, Text, TextInput, View, 
   TouchableOpacity, Dimensions, KeyboardAvoidingView,
-  TouchableWithoutFeedback, Keyboard} from 'react-native';
+  TouchableWithoutFeedback, Keyboard, Platform} from 'react-native';
 
-import { Platform } from 'react-native';
 //import { TestComponent } from './../components/AppComponents';
 import bgImage from '../assets/images/background.png';
-import logo from '../assets/images/logo.png';
+import exerImage from '../assets/images/bicep.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const { width: WIDTH } = Dimensions.get('window')
@@ -16,7 +15,7 @@ export default class LoginScreen extends React.Component {
   
   //Top banner
   static navigationOptions = {
-    title: 'Login',
+    title: 'bicepCurl',
   };
   //Show/Hide password
   constructor() {
@@ -26,17 +25,17 @@ export default class LoginScreen extends React.Component {
       press: false
     };
     state = {
-      userName: '',
-      password: '',
+      reps: '',
+      sets: '',
     };
 
   }
 
   onClickListener = (viewId) => {
-    console.log(this.state.userName);
-    console.log(this.state.password);
+    // console.log(this.state.userName);
+    // console.log(this.state.password);
 
-    Alert.alert("Alert", "Button pressed "+viewId);
+    Alert.alert("Congratulations", "You've just recorded "+this.state.sets+" sets of "+this.state.reps+" for the "+viewId);
   }
 
   // //
@@ -65,8 +64,8 @@ export default class LoginScreen extends React.Component {
         {/*This block shows words workour tracker with image of buff guy underneath, at top of screen*/}
           <View style = {styles.container}>
             <View style = {styles.logoContainer}>
-              <Text style = {styles.logoText}>Workout Tracker</Text>
-              <Image source={logo} style={styles.logo}>
+              <Text style = {styles.logoText}>Bicep Curl</Text>
+              <Image source={exerImage} style={styles.exerImage}>
               </Image>
               
             </View>
@@ -124,9 +123,9 @@ export default class LoginScreen extends React.Component {
             
             {/*This block has a grey oval (from "styleSheet) and then puts word login, I moved the button from being the words login to the actual circle*/}
             <TouchableOpacity onPress={this._onPressButton} 
-                  style={styles.btnLogin}  onPress={() => this.onClickListener('Login')}>
+                  style={styles.btnLogin}  onPress={() => this.onClickListener('Bicep Curl')}>
                   
-                  <Text style={styles.text} >Login</Text>
+                  <Text style={styles.text} >Log Workout</Text>
             </TouchableOpacity> 
           </View>
         </TouchableWithoutFeedback>
@@ -179,10 +178,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  logo:{
+  exerImage:{
     width: 256,
-    height: 256,
+    height: 200,
     justifyContent: 'center',
+    resizeMode: 'contain'
   },
 
   logoText: {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   btnLogin: {
     width: (WIDTH/3),
     height: 45, 
-    borderRadius: 45, 
+    borderRadius: 50, 
     backgroundColor: 'rgba(255, 255, 255, 0.35)',
     marginBottom: 20,
   },

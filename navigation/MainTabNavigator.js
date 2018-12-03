@@ -3,20 +3,21 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+//import HomeScreen from '../screens/HomeScreen';
 import TestScreen from '../screens/TestScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import Profile from '../screens/Profile';
+import IndividualworkOut from '../screens/bicepCurl';
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: IndividualworkOut,
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Test Workout Pages',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -48,6 +49,11 @@ const LoginStack = createStackNavigator({
   Login: LoginScreen,
   SignUp: RegisterScreen,
   Profile: Profile,
+},
+{
+  //backTitle: null,
+  headerMode: 'none',
+  //headerBackTitleVisible: false,
 });
 
 LoginStack.navigationOptions = {
