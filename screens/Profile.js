@@ -40,47 +40,51 @@ export default class SignUpView extends Component {
           <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
             <View style={styles.container}>
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/> 
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="First Name"
                     keyboardType="email-address"
                     underlineColorAndroid='transparent'
+                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(firstName) => this.setState({firstName})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Last Name"
                     keyboardType="email-address"
                     underlineColorAndroid='transparent'
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(lastName) => this.setState({lastName})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'}
+                <Icon name={'md-person'}
                      style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Height"
                     underlineColorAndroid='transparent'
+                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(height) => this.setState({height})}/>
               </View>
               
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} 
+                <Icon name={'md-person'}
                     style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Weight"
                     underlineColorAndroid='transparent'
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(weight) => this.setState({weight})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <Picker
                   selectedValue={this.state.gender}
                   onValueChange={gender => this.setState({ gender })}
-                  style = {{ color: 'rgba(255, 255, 255, 0.7)', width: 260,  } }
+                  style = {{ color: 'rgba(255, 255, 255, 0.7)', width: 260} }
                   mode="dropdown">
                   <Picker.Item label="Male" value="male" />
                   <Picker.Item label="Female" value="female" />
