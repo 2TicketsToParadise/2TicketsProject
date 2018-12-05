@@ -7,26 +7,53 @@ import {
 } from 'react-native';
 import bgImage from '../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
+import * as firebase from 'firebase';
+import TestComponent from '../components/AppComponents/TestComponent';
+
+
+
 
 export default class SignUpView extends Component {
 
+
   constructor(props) {
     super(props);
-      this.state = {
-        firstName: '',
-        lastName: '',
-        email   : '',
-        password: '',
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      userId: (firebase.auth().currentUser || {}).uid,
+
     }
   }
 
   onClickListener = (viewId) => {
     console.log(this.state);
 
-    Alert.alert("Alert", "Button pressed "+viewId);
+    Alert.alert("Alert", "Button pressed " + viewId);
   }
-// <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
-// source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
+  // <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+  // source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
+
+
+  
+
+
+  //Firebase Logout
+  onSignoutPress = () => {
+    firebase.auth().signOut();
+
+  }
+  //Show Firebase uid
+  onUserPress = () => {
+    userId = (firebase.auth().currentUser || {}).uid;
+    test1 = firebase.database().collection('Users').doc(uid).collection('test').doc().set(uid);
+    console.log(userId)
+  }
+
+
+
 
 
   render() {
@@ -34,6 +61,12 @@ export default class SignUpView extends Component {
 
       <View style={styles.container}>
         <Text>Test Screen</Text>
+        {/* show the TestComponent */}
+        <TestComponent />
+        <Text> { this.state.userId } </Text>
+        <Button title='Signout' onPress={this.onSignoutPress} />
+        <Button title='User' onPress={this.onUserPress} /> 
+
       </View>
       // <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
       //   <KeyboardAvoidingView behavior="padding" style={styles.container} >
@@ -66,7 +99,7 @@ export default class SignUpView extends Component {
       //               underlineColorAndroid='transparent'
       //               onChangeText={(height) => this.setState({height})}/>
       //         </View>
-              
+
       //         <View style={styles.inputContainer}>
       //           <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
       //               size= {28} color={'rgba(255, 255, 255, 0.7)'} 
@@ -87,7 +120,7 @@ export default class SignUpView extends Component {
       //               onChangeText={(gender) => this.setState({gender})}/>
       //         </View>
 
-              
+
 
       //         <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
       //           <Text style={styles.signUpText}>Sign up</Text>
@@ -111,25 +144,25 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderBottomColor: '#F5FCFF',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius:30,
+    borderRadius: 30,
     borderBottomWidth: 1,
-    width:250,
-    height:45,
-    marginBottom:20,
+    width: 250,
+    height: 45,
+    marginBottom: 20,
     flexDirection: 'row',
-    alignItems:'center'
+    alignItems: 'center'
   },
-  inputs:{
-    height:45,
-    marginLeft:16,
+  inputs: {
+    height: 45,
+    marginLeft: 16,
     borderBottomColor: '#FFFFFF',
-    flex:1,
+    flex: 1,
     color: 'rgba(255, 255, 255, 0.7)',
   },
-  inputIcon:{
-    width:30,
-    height:30,
-    marginLeft:15,
+  inputIcon: {
+    width: 30,
+    height: 30,
+    marginLeft: 15,
     justifyContent: 'center'
   },
   backgroundContainer: {
@@ -140,13 +173,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    height:45,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
   },
   signupButton: {
     backgroundColor: '#rgba(255, 255, 255, 0.8)',
