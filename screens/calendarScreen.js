@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 
-export default class CalendarsScreen extends Component {
+export default class calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {};
