@@ -6,13 +6,19 @@ export default class historyScreen extends Component {
     constructor(weights) {
         super(weights);
         this.state = {
-            tableHead: ['Area', 'Lift', 'Weight', 'Reps', 'Sets'],
-            tableData: [
+            weightsHead: ['Area', 'Lift', 'Weight', 'Reps', 'Sets'],
+            weightsData: [
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
+            ],
+            cardioHead: ['Exercise', 'Dist', 'Time'],
+            cardioData: [
+                ['Run', '1 mile', '10 minutes'],
+                ['Swim', '30 laps', '20 minutes'],
+                ['Stairs', '200 stairs', '10 minutes'],
             ]
         }
     }
@@ -25,14 +31,14 @@ export default class historyScreen extends Component {
 
                 <Text style = {styles.headers}>Weights</Text>
                 <Table styles={styles.chart} borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-                    <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-                    <Rows data={state.tableData} textStyle={styles.text}/>
+                    <Row data={state.weightsHead} style={styles.head} textStyle={styles.text}/>
+                    <Rows data={state.weightsData} textStyle={styles.text}/>
                 </Table>
 
                 <Text style = {styles.headers}>Cardio</Text>
                 <Table styles={styles.chart} borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-                    <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-                    <Rows data={state.tableData} textStyle={styles.text}/>
+                    <Row data={state.cardioHead} style={styles.head} textStyle={styles.text}/>
+                    <Rows data={state.cardioData} textStyle={styles.text}/>
                 </Table>
             </View>
 
