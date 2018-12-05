@@ -3,11 +3,14 @@ import { ImageBackground, Image, Alert,
   StyleSheet, Text, TextInput, View, 
   TouchableOpacity, Dimensions, KeyboardAvoidingView,
   TouchableWithoutFeedback, Keyboard, Platform} from 'react-native';
+import ModalPicker from 'react-native-modal-picker';
 
+ 
 //import { TestComponent } from './../components/AppComponents';
 import bgImage from '../assets/images/background.png';
 import exerImage from '../assets/images/bicep.png';
 import Icon from 'react-native-vector-icons/Ionicons';
+import bell from '../assets/images/dumbbell.png';
 
 const { width: WIDTH } = Dimensions.get('window')
 
@@ -17,42 +20,46 @@ export default class LoginScreen extends React.Component {
   static navigationOptions = {
     title: 'bicepCurl',
   };
-  //Show/Hide password
+
   constructor() {
     super()
-    this.state = {
-      showPass: true,
-      press: false
-    };
     state = {
       reps: '',
       sets: '',
+      weight: '',
     };
 
   }
-
+  
   onClickListener = (viewId) => {
-    // console.log(this.state.userName);
-    // console.log(this.state.password);
-
-    Alert.alert("Congratulations", "You've just recorded "+this.state.sets+" sets of "+this.state.reps+" for the "+viewId);
-  }
-
-  // //
-  // onPress(){
-  //   console.log('Clicked Sign Up')
-  // }
-
-  showPass = () => {
-    if (this.state.press == false) {
-      this.setState({ showPass: false, press: true})
-    } else {
-      this.setState({ showPass: true, press: false})
+    if (this.state.reps > 0 && this.state.sets > 0 && this.state.weight > 0){
+        Alert.alert("Congratulations", "You've just recorded "+this.state.sets+" sets of "+this.state.reps+" at "+this.state.weight+" pounds for the "+viewId);
+        //add code for adding data to db and probably a screen change if we want?
+    }
+    else{
+        Alert.alert("You didn't enter all of you workout info!")
     }
   }
 
-
   render() {
+    // let index = 0;
+    // const data = [
+    //     { key: index++, section: true, label: 'Fruits' },
+    //     { key: index++, label: 'Red Apples' },
+    //     { key: index++, label: 'Cherries' },
+    //     { key: index++, label: 'Cranberries' },
+    //     { key: index++, label: 'Pink Grapefruit' },
+    //     { key: index++, label: 'Raspberries' },
+    //     { key: index++, section: true, label: 'Vegetables' },
+    //     { key: index++, label: 'Beets' },
+    //     { key: index++, label: 'Red Peppers' },
+    //     { key: index++, label: 'Radishes' },
+    //     { key: index++, label: 'Radicchio' },
+    //     { key: index++, label: 'Red Onions' },
+    //     { key: index++, label: 'Red Potatoes' },
+    //     { key: index++, label: 'Rhubarb' },
+    //     { key: index++, label: 'Tomatoes' }
+    // ];
     //navitgate pages
     const {navigate} = this.props.navigation;
 
@@ -69,6 +76,26 @@ export default class LoginScreen extends React.Component {
               </Image>
               
             </View>
+            <View style={{flex:1, justifyContent:'space-around', padding:50}}>
+
+                {/* <ModalPicker
+                    data={data}
+                    initValue="Select something yummy!"
+                    onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} />
+
+                <ModalPicker
+                    data={data}
+                    initValue="Select something yummy!"
+                    onChange={(option)=>{ this.setState({textInputValue:option.label})}}>
+                    
+                    <TextInput
+                        style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+                        editable={false}
+                        placeholder="Select something yummy!"
+                        value={this.state.textInputValue} />
+                        
+                </ModalPicker> */}
+            </View>
             {/*This block shows the username input block along with a person symbol next to it*/}
             <View style={styles.inputContainer}>
               {/* <View style={{paddingBottom: 10}}> */}
@@ -78,14 +105,14 @@ export default class LoginScreen extends React.Component {
                 style={styles.inputIcon}/>
               <TextInput 
                 style={styles.input}
-                placeholder={'Username'}
-                keyboardType='email-address'
+                placeholder={'Reps Per Set'}
+                keyboardType='number-pad'
                 returnKeyType='next'
                 autoCorrect= {false}
                 autoCapitalize='none'
                 placeholderTextColor={'rgba(255, 255, 255, 0.8)'}
                 underlineColorAndroid='transparent'
-                onChangeText={(userName) => this.setState({userName})}
+                onChangeText={(reps) => this.setState({reps})}
               />
             </View>
 
@@ -98,27 +125,34 @@ export default class LoginScreen extends React.Component {
 
               <TextInput 
                 style={styles.input}
-                placeholder={'Password'}
+                placeholder={'# of Sets'}
+                keyboardType='number-pad'
                 returnKeyType='go'
                 autoCorrect={false}
                 autoCapitalize='none'
-                secureTextEntry= {this.state.showPass}
                 placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                 underlineColorAndroid='transparent'
-                onChangeText={(password) => this.setState({password})}
+                onChangeText={(sets) => this.setState({sets})}
               />
-              {/* Show/Hide password */}
-              <TouchableOpacity onPress={this._onPressButton} onPress= {this.showPass.bind(this)} style={styles.btnEye}>
+            </View>
+            {/*This block shows the weights input block along with a person symbol next to it*/}
+            <View style={styles.inputContainer}>
+              {/* <View style={{paddingBottom: 10}}> */}
                     {/* Platform.OS === 'ios' ? something : andriodSomething */}
-                <Icon name = {this.state.press == false ? ('md-eye') : ('md-eye-off')} size = {26} color={'rgba(255, 255, 255, 0.7)'} style={styles.btneye} />
-              </TouchableOpacity>
-            </View> 
-
-            {/*This block makes a button with create account text*/}
-            {/* Create Account navigate */}
-            <View style= {styles.signUpContainer}>
-              <Text style= {styles.text} onPress={() => navigate('SignUp')}>
-              Create an account!</Text> 
+              <Image source={bell} 
+                size= {28} color={'rgba(255, 255, 255, 0.7)'} 
+                style={styles.inputIcon}/>
+              <TextInput 
+                style={styles.input}
+                placeholder={'Weight (lbs)'}
+                keyboardType='number-pad'
+                returnKeyType='next'
+                autoCorrect= {false}
+                autoCapitalize='none'
+                placeholderTextColor={'rgba(255, 255, 255, 0.8)'}
+                underlineColorAndroid='transparent'
+                onChangeText={(weight) => this.setState({weight})}
+              />
             </View>
             
             {/*This block has a grey oval (from "styleSheet) and then puts word login, I moved the button from being the words login to the actual circle*/}
@@ -180,7 +214,7 @@ const styles = StyleSheet.create({
 
   exerImage:{
     width: 256,
-    height: 200,
+    height: 180,
     justifyContent: 'center',
     resizeMode: 'contain'
   },
@@ -192,6 +226,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 40,
     opacity: 0.5,
+    marginBottom: 15,
   },
 
   backgroundContainer: {
@@ -210,9 +245,9 @@ const styles = StyleSheet.create({
   },
 
   btnLogin: {
-    width: (WIDTH/3),
-    height: 45, 
-    borderRadius: 50, 
+    width: (WIDTH/2.5),
+    height: 40, 
+    borderRadius: 60, 
     backgroundColor: 'rgba(255, 255, 255, 0.35)',
     marginBottom: 20,
   },
