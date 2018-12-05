@@ -1,11 +1,11 @@
-import React from 'react';
+
 import { ImageBackground, Image, Alert,
     StyleSheet, Text, TextInput, View,
     TouchableOpacity, Dimensions, KeyboardAvoidingView,
     TouchableWithoutFeedback, Keyboard, Platform} from 'react-native';
 
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+
 import { Constants } from 'expo';
 
 
@@ -28,48 +28,46 @@ export default class LoginScreen extends React.Component {
 
     render() {
         //navitgate pages
-        const {navigate} = this.props.navigation;
 
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>7 Day History</Text>
-                {/*This block shows the username input block along with a person symbol next to it*/}
                 <View style={styles.calendarContainer}>
                     <Text>Here is where the calendar will go</Text>
                     <View style={styles.dayContainer}>
-                        <Text>Day 1</Text>
+                        <Text>1 Day Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 2</Text>
+                        <Text>2 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 3</Text>
+                        <Text>3 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 4</Text>
+                        <Text>4 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 5</Text>
+                        <Text>5 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 6</Text>
+                        <Text>6 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                     <View style={styles.dayContainer}>
-                        <Text>Day 7</Text>
+                        <Text>7 Days Ago</Text>
                         <Text>Workout Type: </Text>
-                        <Text>Exercise: </Text>
+                        <Text>Exercises: </Text>
                     </View>
                 </View>
 
@@ -87,12 +85,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#ecf0f1',
         padding: 10,
     },
-    paragraph: {
-        margin: 24,
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
+    // paragraph: {
+    //     margin: 24,
+    //     fontSize: 18,
+    //     fontWeight: 'bold',
+    //     textAlign: 'center',
+    // },
     title: {
         fontSize: 40,
         backgroundColor: '#aaaaaa',
@@ -101,8 +99,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     calendarContainer: {
-        backgroundColor: '#faca3a',
+        backgroundColor: '#ffffff',
         flex: 10,
+        justifyContent: 'flex-start'
+    },
+    dayContainer: {
+        fontSize: 20,
+        backgroundColor: '#ffffff',
+        textAlign: 'center',
+        flex: 2,
         justifyContent: 'flex-start'
     }
 });
