@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { Text, View, } from 'react-native';
-import dbCall from '../constants/dbCall';
+import { dbCall } from '../constants/dbCall';
 
 
 
@@ -31,38 +31,22 @@ export default class CallTest extends React.Component {
 
 
     componentDidMount() {
-        return dbCall('select * from users where age = 29;', function (responseData) {
+
+
+        return dbCall('select * from users where age = 75;', this, function (responseData, component) {
             // Note: This function will be executed inside of the dbCall function when the API responds with data
 
             // TODO: Add Safety checks -> length of responseData
             var state = {
                 isLoading: false,
-                firstName: responseData[0].firstName,
-                lastName: responseData[0].lastName,
+                firstName: responseData[0].firstname,
+                lastName: responseData[0].lastname,
                 age: responseData[0].age,
                 weight: responseData[0].weight,
                 height: responseData[0].height
             };
-            this.setState(state, function () {
-
+            component.setState(state, function () {
             });
-
-
-
-
-
-            return fetch('https://facebook.github.io/react-native/movies.json')
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    this.setState({
-                        isLoading: false,
-                        dataSource: responseJson.movies
-                    }, function () { });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-
         });
     }
 
@@ -80,7 +64,8 @@ export default class CallTest extends React.Component {
         }
         return (
             <View>
-                <Text> Hello, {this.state.firstName} {this.state.lastName} </Text>
+                <Text> {this.state.firstName}</Text>
+                <Text>{this.state.lastName} </Text>
                 <Text> Age: {this.state.age} </Text>
                 <Text> Weight: {this.state.weight} </Text>
                 <Text> Height: {this.state.height} </Text>

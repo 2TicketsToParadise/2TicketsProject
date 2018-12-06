@@ -1,4 +1,4 @@
-function dbCall(databaseQuery, callBackFunction)
+export function dbCall(databaseQuery, component, callBackFunction)
 {
 
     return fetch('https://twoticketsdatabase.herokuapp.com/', {
@@ -12,7 +12,7 @@ function dbCall(databaseQuery, callBackFunction)
         }),
     }).then((response) => response.json())
         .then((responseJson) => {
-            callBackFunction(responseJson.data);
+            callBackFunction(responseJson.data, component);
         }).catch((error) => {
         console.error(error);
     });
