@@ -6,11 +6,9 @@ export default class TestComponent extends React.Component {
 
     render() {
         return (
-        <View>
-            <Text>TestComponent</Text>
-
-        </View>
-
+            <View>
+                <Text>TestComponent</Text>
+            </View>
 
         )
     }

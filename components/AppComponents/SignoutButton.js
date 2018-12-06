@@ -10,7 +10,6 @@ export default class SignoutOut extends React.Component {
     }
     onSignoutPress = () => {
         firebase.auth().signOut();
-
     }
 
     render() {
@@ -18,8 +17,6 @@ export default class SignoutOut extends React.Component {
             <View>
                 <Button title='Signout' onPress={this.onSignoutPress} />
             </View>
-
-
         )
     }
 
