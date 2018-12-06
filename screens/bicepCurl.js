@@ -2,8 +2,8 @@ import React from 'react';
 import { ImageBackground, Image, Alert,
   StyleSheet, Text, TextInput, View, 
   TouchableOpacity, Dimensions, KeyboardAvoidingView,
-  TouchableWithoutFeedback, Keyboard, Platform} from 'react-native';
-import ModalPicker from 'react-native-modal-picker';
+  TouchableWithoutFeedback, Keyboard, Switch, Platform} from 'react-native';
+  import ModalSelector from 'react-native-modal-selector'
 
  
 //import { TestComponent } from './../components/AppComponents';
@@ -27,6 +27,7 @@ export default class LoginScreen extends React.Component {
       reps: '',
       sets: '',
       weight: '',
+      textInputValue: '',
     };
 
   }
@@ -42,24 +43,16 @@ export default class LoginScreen extends React.Component {
   }
 
   render() {
-    // let index = 0;
-    // const data = [
-    //     { key: index++, section: true, label: 'Fruits' },
-    //     { key: index++, label: 'Red Apples' },
-    //     { key: index++, label: 'Cherries' },
-    //     { key: index++, label: 'Cranberries' },
-    //     { key: index++, label: 'Pink Grapefruit' },
-    //     { key: index++, label: 'Raspberries' },
-    //     { key: index++, section: true, label: 'Vegetables' },
-    //     { key: index++, label: 'Beets' },
-    //     { key: index++, label: 'Red Peppers' },
-    //     { key: index++, label: 'Radishes' },
-    //     { key: index++, label: 'Radicchio' },
-    //     { key: index++, label: 'Red Onions' },
-    //     { key: index++, label: 'Red Potatoes' },
-    //     { key: index++, label: 'Rhubarb' },
-    //     { key: index++, label: 'Tomatoes' }
-    // ];
+    let index = 0;
+        const data = [
+            { key: index++, section: true, label: 'Fruits' },
+            { key: index++, label: 'Red Apples' },
+            { key: index++, label: 'Cherries' },
+            { key: index++, label: 'Cranberries', accessibilityLabel: 'Tap here for cranberries' },
+            // etc...
+            // Can also add additional custom keys which are passed to the onChange callback
+            { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
+        ];
     //navitgate pages
     const {navigate} = this.props.navigation;
 
@@ -78,23 +71,39 @@ export default class LoginScreen extends React.Component {
             </View>
             <View style={{flex:1, justifyContent:'space-around', padding:50}}>
 
-                {/* <ModalPicker
-                    data={data}
-                    initValue="Select something yummy!"
-                    onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} />
 
-                <ModalPicker
+                {/* // Default mode
+                <ModalSelector
                     data={data}
                     initValue="Select something yummy!"
-                    onChange={(option)=>{ this.setState({textInputValue:option.label})}}>
-                    
+                    onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} /> */}
+
+                {/* // Wrapper */}
+                <ModalSelector
+                    data={data}
+                    initValue="Select something yummy!"
+                    supportedOrientations={['landscape']}
+                    accessible={true}
+                    scrollViewAccessibilityLabel={'Scrollable options'}
+                    cancelButtonAccessibilityLabel={'Cancel Button'}
+                    onChange={(option)=>{ this.setState({textInputValue:option.label})}}
+                    >
+
                     <TextInput
                         style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
                         editable={false}
                         placeholder="Select something yummy!"
-                        value={this.state.textInputValue} />
-                        
-                </ModalPicker> */}
+                        //value={this.state.textInputValue}
+                         />
+
+                </ModalSelector>
+
+                {/* // Custom component */}
+                {/* <ModalSelector
+                    data={data}
+                    ref={selector => { this.selector = selector; }}
+                    customSelector={<Switch onValueChange={() => this.selector.open()} />}
+                /> */}
             </View>
             {/*This block shows the username input block along with a person symbol next to it*/}
             <View style={styles.inputContainer}>

@@ -7,17 +7,20 @@ import TabBarIcon from '../components/TabBarIcon';
 import TestScreen from '../screens/TestScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import Profile from '../screens/Profile';
-import IndividualworkOut from '../screens/bicepCurl';
+import Profile from '../screens/cardio';
+import weightLifting from '../screens/weightLifting';
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
-  Home: IndividualworkOut,
+  Home: weightLifting,
+},
+{
+  headerMode: 'none',
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Test Workout Pages',
+  tabBarLabel: 'Weight Lifting',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -33,10 +36,13 @@ HomeStack.navigationOptions = {
 const TestStack = createStackNavigator({
   Profile: Profile,
   Test: TestScreen,
+},
+{
+  headerMode: 'none',
 });
 
 TestStack.navigationOptions = {
-  tabBarLabel: 'Test',
+  tabBarLabel: 'Cardio',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -51,9 +57,7 @@ const LoginStack = createStackNavigator({
   Profile: Profile,
 },
 {
-  //backTitle: null,
   headerMode: 'none',
-  //headerBackTitleVisible: false,
 });
 
 LoginStack.navigationOptions = {

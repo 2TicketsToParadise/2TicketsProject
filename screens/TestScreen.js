@@ -7,99 +7,66 @@ import {
 } from 'react-native';
 import bgImage from '../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ModalSelector from 'react-native-modal-selector'
 
-export default class SignUpView extends Component {
+export default class SampleApp extends React.Component {
 
-  constructor(props) {
-    super(props);
-      this.state = {
-        firstName: '',
-        lastName: '',
-        email   : '',
-        password: '',
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            textInputValue: ''
+        }
     }
-  }
 
-  onClickListener = (viewId) => {
-    console.log(this.state);
+    render() {
+        let index = 0;
+        const data = [
+            { key: index++, section: true, label: 'Fruits' },
+            { key: index++, label: 'Red Apples' },
+            { key: index++, label: 'Cherries' },
+            { key: index++, label: 'Cranberries', accessibilityLabel: 'Tap here for cranberries' },
+            // etc...
+            // Can also add additional custom keys which are passed to the onChange callback
+            { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
+        ];
 
-    Alert.alert("Alert", "Button pressed "+viewId);
-  }
-// <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
-// source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
+        return (
+            <View style={{flex:1, justifyContent:'space-around', padding:50}}>
 
+                {/* // Default mode */}
+                <ModalSelector
+                    data={data}
+                    initValue="Select something yummy!"
+                    onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} />
 
-  render() {
-    return (
+                {/* // Wrapper
+                <ModalSelector
+                //     data={data}
+                //     initValue="Select something yummy!"
+                //     accessible={true}
+                //     scrollViewAccessibilityLabel={'Scrollable options'}
+                //     cancelButtonAccessibilityLabel={'Cancel Button'}
+                //     onChange={(option)=>{ this.setState({textInputValue:option.label})}}>
 
-      <View style={styles.container}>
-        <Text>Test Screen</Text>
-      </View>
-      // <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
-      //   <KeyboardAvoidingView behavior="padding" style={styles.container} >
-      //     <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
-      //       <View style={styles.container}>
-      //         <View style={styles.inputContainer}>
-      //           <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/> 
-      //           <TextInput style={styles.inputs}
-      //               placeholder="First Name"
-      //               keyboardType="email-address"
-      //               underlineColorAndroid='transparent'
-      //               onChangeText={(firstName) => this.setState({firstName})}/>
-      //         </View>
+                //     <TextInput
+                //         style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+                //         editable={false}
+                //         placeholder="Select something yummy!"
+                //         value={this.state.textInputValue} />
 
-      //         <View style={styles.inputContainer}>
-      //           <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
-      //           <TextInput style={styles.inputs}
-      //               placeholder="Last Name"
-      //               keyboardType="email-address"
-      //               underlineColorAndroid='transparent'
-      //               onChangeText={(lastName) => this.setState({lastName})}/>
-      //         </View>
+                // </ModalSelector>
 
-      //         <View style={styles.inputContainer}>
-      //           <Icon name= {Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'} 
-      //             size= {28} color={'rgba(255, 255, 255, 0.7)'} 
-      //             style={styles.inputIcon}/>
-      //           <TextInput style={styles.inputs}
-      //               placeholder="Height"
-      //               underlineColorAndroid='transparent'
-      //               onChangeText={(height) => this.setState({height})}/>
-      //         </View>
-              
-      //         <View style={styles.inputContainer}>
-      //           <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
-      //               size= {28} color={'rgba(255, 255, 255, 0.7)'} 
-      //               style={styles.inputIcon}/>
-      //           <TextInput style={styles.inputs}
-      //               placeholder="Weight"
-      //               underlineColorAndroid='transparent'
-      //               onChangeText={(weight) => this.setState({weight})}/>
-      //         </View>
-
-      //         <View style={styles.inputContainer}>
-      //           <Icon name= {Platform.OS === 'ios' ? 'ios-lock-outline' : 'md-lock'} 
-      //               size= {28} color={'rgba(255, 255, 255, 0.7)'} 
-      //               style={styles.inputIcon}/>
-      //           <TextInput style={styles.inputs}
-      //               placeholder="Gender"
-      //               underlineColorAndroid='transparent'
-      //               onChangeText={(gender) => this.setState({gender})}/>
-      //         </View>
-
-              
-
-      //         <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
-      //           <Text style={styles.signUpText}>Sign up</Text>
-      //         </TouchableHighlight>
-      //       </View>
-      //     </TouchableWithoutFeedback>      
-      //   </KeyboardAvoidingView>
-      // </ImageBackground>
-    );
-  }
+                {/* //Custom component */}
+                {/* <ModalSelector
+                    data={data}
+                    ref={selector => { this.selector = selector; }}
+                    customSelector={<Switch onValueChange={() => this.selector.open()} />}
+                /> */}
+            </View>
+        );
+    }
 }
-
 
 const styles = StyleSheet.create({
   container: {
