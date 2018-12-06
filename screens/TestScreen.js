@@ -21,8 +21,13 @@ export default class SignUpView extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      age: '',
+      weight: '', 
+      height: '', 
+      uuid: '',
+      
       userId: (firebase.auth().currentUser || {}).uid,
-      data: [],
+      data: '',
 
     }
   }
@@ -43,7 +48,7 @@ export default class SignUpView extends Component {
       .then((responseJson) => {
         //console.log(responseJson.data)
         //this.setState({ data: responseJson.data })
-        return responseJson.data.lastname;
+        return responseJson.data;
       }).catch((error) => {
         console.error(error);
 
@@ -52,7 +57,7 @@ export default class SignUpView extends Component {
   }
 
   onMonkeyPress = () => {
-    data= [this.testDatabaseCall()],
+    this.testDatabaseCall(),
     console.log(data)
   }
 
