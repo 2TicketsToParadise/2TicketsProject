@@ -1,7 +1,7 @@
-function dbCall(databaseQuery)
+function dbCall(databaseQuery, callBackFunction)
 {
 
-    fetch('https://twoticketsdatabase.herokuapp.com/', {
+    return fetch('https://twoticketsdatabase.herokuapp.com/', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -12,9 +12,8 @@ function dbCall(databaseQuery)
         }),
     }).then((response) => response.json())
         .then((responseJson) => {
-            return responseJson.data;
+            callBackFunction(responseJson.data);
         }).catch((error) => {
         console.error(error);
-
     });
 }
