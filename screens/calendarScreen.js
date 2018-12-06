@@ -7,7 +7,11 @@ import {
 } from 'react-native';
 import {Calendar} from 'react-native-calendars';
 
-export default class calendar extends Component {
+export default class calendar extends React.Component {
+    static navigationOptions = {
+        title: 'CalendarScreen',
+    };
+
     constructor(props) {
         super(props);
         this.state = {};
@@ -15,10 +19,13 @@ export default class calendar extends Component {
     }
 
     render() {
+        const {navigate} = this.props.navigation;
+
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Calendar
-                    onDayPress={this.onDayPress}
+                    //onDayPress={this.onDayPress}
+                    onDayPress ={() => navigate('His')}
                     style={styles.calendar}
                     hideExtraDays
                     markedDates={{[this.state.selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}}}
@@ -45,10 +52,17 @@ const styles = StyleSheet.create({
         height: 350
     },
     container: {
+        // flex: 1,
+        // backgroundColor: 'gray',
+        //flexDirection: 'column',
+        //justifyContent: 'center',
+        //width: 'width',
+    },
+    contentContainer: {
         flex: 1,
         backgroundColor: 'gray',
         flexDirection: 'column',
         justifyContent: 'center',
-        width: 'width',
+        width: '100%',
     }
 });

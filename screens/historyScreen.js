@@ -6,7 +6,7 @@ export default class historyScreen extends Component {
     constructor(weights) {
         super(weights);
         this.state = {
-            weightsHead: ['Area', 'Lift', 'Weight', 'Reps', 'Sets'],
+            weightsHead: ['Area', 'Lift', 'Reps', 'Sets', 'Weight'],
             weightsData: [
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
@@ -14,11 +14,11 @@ export default class historyScreen extends Component {
                 ['Chest', 'Bench', '60', '8', '3'],
                 ['Chest', 'Bench', '60', '8', '3'],
             ],
-            cardioHead: ['Exercise', 'Dist', 'Time'],
+            cardioHead: ['Exercise', 'Dist', 'Time', 'Heart Rate'],
             cardioData: [
-                ['Run', '1 mile', '10 minutes'],
-                ['Swim', '30 laps', '20 minutes'],
-                ['Stairs', '200 stairs', '10 minutes'],
+                ['Run', '1 mile', '10 minutes', '100'],
+                ['Swim', '30 laps', '20 minutes', '100'],
+                ['Stairs', '200 stairs', '10 minutes', '100'],
             ]
         }
     }
