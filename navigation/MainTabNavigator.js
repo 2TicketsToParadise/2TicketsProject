@@ -9,6 +9,9 @@ import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import Profile from '../screens/cardio';
 import weightLifting from '../screens/weightLifting';
+import CalendarScreen from '../screens/calendarScreen';
+import HistoryScreen from '../screens/historyScreen';
+
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
