@@ -1,11 +1,11 @@
 export default {
     FirebaseConfig: {
-        apiKey: "AIzaSyDhfxDgoX0Q15Y-pOyXk7cKOulmai_ouLw",
-        authDomain: "twoticketstoparadise-57a25.firebaseapp.com",
-        databaseURL: "https://twoticketstoparadise-57a25.firebaseio.com",
-        projectId: "twoticketstoparadise-57a25",
-        storageBucket: "twoticketstoparadise-57a25.appspot.com",
-        messagingSenderId: "718041562220"
+        apiKey: "AIzaSyDeB7_4ak8ShKaVSLgDtL4bi6E5nZJFo3E",
+        authDomain: "exercisetracker-5f38c.firebaseapp.com",
+        databaseURL: "https://exercisetracker-5f38c.firebaseio.com",
+        projectId: "exercisetracker-5f38c",
+        storageBucket: "exercisetracker-5f38c.appspot.com",
+        messagingSenderId: "81356626731"
     }
 }
 

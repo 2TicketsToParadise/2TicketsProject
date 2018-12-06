@@ -9,7 +9,7 @@ import bgImage from '../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as firebase from 'firebase';
 import TestComponent from '../components/AppComponents/TestComponent';
-
+import dbCall from '../constants/dbCall';
 
 
 
@@ -21,24 +21,40 @@ export default class SignUpView extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      email: '',
-      password: '',
       userId: (firebase.auth().currentUser || {}).uid,
+      data: [],
 
     }
   }
 
-  onClickListener = (viewId) => {
-    console.log(this.state);
 
-    Alert.alert("Alert", "Button pressed " + viewId);
+
+  testDatabaseCall() {
+    fetch('https://twoticketsdatabase.herokuapp.com/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: 'select * from users where age = 29;'
+      }),
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        //console.log(responseJson.data)
+        //this.setState({ data: responseJson.data })
+        return responseJson.data.lastname;
+      }).catch((error) => {
+        console.error(error);
+
+      });
+
   }
-  // <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
-  // source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
 
-
-  
-
+  onMonkeyPress = () => {
+    data= [this.testDatabaseCall()],
+    console.log(data)
+  }
 
   //Firebase Logout
   onSignoutPress = () => {
@@ -48,24 +64,53 @@ export default class SignUpView extends Component {
   //Show Firebase uid
   onUserPress = () => {
     userId = (firebase.auth().currentUser || {}).uid;
-    test1 = firebase.database().collection('Users').doc(uid).collection('test').doc().set(uid);
+   
+   
+   
+    fetch('https://twoticketsdatabase.herokuapp.com/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: 'select * from users where age = 29;'
+      }),
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson.data)
+        this.setState({ data: responseJson.data })
+        return responseJson.data;
+      }).catch((error) => {
+        console.error(error);
+
+      });    //console.log(responseJson.data)  
     console.log(userId)
+    //console.log(this.state.data.lastname)
   }
 
+  // textInputComponents() {
 
-
+  // data.map((type) => <TextInput placeholder={type} />)
+ 
+  // }
 
 
   render() {
+
+
     return (
 
+
       <View style={styles.container}>
+        <Button title='MonkeySee' onPress={this.onMonkeyPress} />
         <Text>Test Screen</Text>
         {/* show the TestComponent */}
         <TestComponent />
-        <Text> { this.state.userId } </Text>
+        <Text>{this.state.userId}</Text>
+        
         <Button title='Signout' onPress={this.onSignoutPress} />
-        <Button title='User' onPress={this.onUserPress} /> 
+        <Button title='User' onPress={this.onUserPress} />
 
       </View>
       // <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
