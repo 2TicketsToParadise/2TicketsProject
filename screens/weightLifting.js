@@ -24,8 +24,7 @@ export default class weightLifting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: (firebase.auth().currentUser || {}).uid,
-      exerciseId: null,
+      uuid: (firebase.auth().currentUser || {}).uid,
       reps: '',
       sets: '',
       weight: '',
@@ -38,10 +37,8 @@ export default class weightLifting extends React.Component {
   onClickListener = (viewId) => {
     if (this.state.reps > 0 && this.state.sets > 0 && this.state.weight > 0 && this.state.textInputValue != ''){
         Alert.alert("Congratulations", "You've just recorded "+this.state.sets+" sets of "+this.state.reps+" at "+this.state.weight+" pounds for the "+viewId);
-        
-        exerciseid=viewId;
 
-        var test = 'insert into weights (UUID, exerciseid, wdate, sets, reps, weight, onerepmax) values (\''+ this.state.uuid+ '\',\''+this.state.exerciseid+'\',current_timestamp,'+this.state.sets+','+this.state.reps+','+this.state.weight+','+this.state.onerepmax+');';
+        var test = 'insert into weights (UUID, exerciseid, wdate, sets, reps, weight, onerepmax) values (\''+ this.state.uuid+ '\',\''+viewId+'\',current_timestamp,'+this.state.sets+','+this.state.reps+','+this.state.weight+','+this.state.onerepmax+');';
         console.log(test);
         this.setState({reps: ''});
         this.setState({sets: ''});

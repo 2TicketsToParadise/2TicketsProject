@@ -25,8 +25,7 @@ export default class cardio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: (firebase.auth().currentUser || {}).uid,
-      exerciseid: null,
+      uuid: (firebase.auth().currentUser || {}).uid,
       distance: null,
       duration: null,
       heartRate: null,
@@ -39,10 +38,9 @@ export default class cardio extends React.Component {
   onClickListener = (viewId) => {
     if (this.state.distance > 0 && this.state.duration > 0 && this.state.heartRate > 0 && this.state.textInputValue != ''){
         Alert.alert("Congratulations", "You did "+this.state.duration+" minutes of "+viewId+" and travled "+this.state.distance+" with an average heart rate of "+this.state.heartRate);
-        
-        exerciseid= viewId;
+    
 
-        var test = 'insert into cardio (UUID, exerciseid, cdate, duration, distance, heartrate, steps) values (\''+ this.state.uuid+ '\',\''+this.state.exerciseid+'\',current_timestamp,'+this.state.duration+','+this.state.distance+','+this.state.heartrate+','+this.state.steps+');';
+        var test = 'insert into cardio (UUID, exerciseid, cdate, duration, distance, heartrate, steps) values (\''+ this.state.uuid+ '\',\''+viewId+'\',current_timestamp,'+this.state.duration+','+this.state.distance+','+this.state.heartRate+','+this.state.steps+');';
         console.log(test);
         this.setState({duration: ''});
         this.setState({distance: ''});
