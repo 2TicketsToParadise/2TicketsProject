@@ -7,6 +7,7 @@ import React from 'react';
 import { Text, View, } from 'react-native';
 import { dbCall } from '../constants/dbCall';
 import * as firebase from 'firebase';
+import SignoutButton from '../components/AppComponents/SignoutButton';
 
 
 
@@ -65,6 +66,7 @@ export default class CallTest extends React.Component {
                 <Text> Age: {this.state.age} </Text>
                 <Text> Weight: {this.state.weight} </Text>
                 <Text> Height: {this.state.height} </Text>
+                <SignoutButton />
 
             </View>
         );
