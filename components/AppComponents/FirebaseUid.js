@@ -6,7 +6,7 @@ export default class FirebaseUid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: (firebase.auth().currentUser || {}).uid,
+            uuid: (firebase.auth().currentUser || {}).uid,
 
         }
     }
@@ -15,7 +15,7 @@ export default class FirebaseUid extends React.Component {
     render() {
         return (
             <View>
-                <Text>{this.state.userId}</Text>
+                <Text>{this.state.uuid}</Text>
 
             </View>
 
