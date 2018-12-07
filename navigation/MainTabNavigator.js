@@ -7,11 +7,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import TestScreen from '../screens/TestScreen';
 // import LoginScreen from '../screens/LoginScreen';
 // import RegisterScreen from '../screens/RegisterScreen';
-import Profile from '../screens/Profile';
-import LoginScreen from '../screens/LoginScreen';
+import Profile from '../screens/Pii/Profile';
+// import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import weightLifting from '../screens/weightLifting';
-import CalendarScreen from '../screens/calendarScreen';
+// import CalendarScreen from '../screens/calendarScreen';
 import HistoryScreen from '../screens/historyScreen';
 
 //import UserForm from './../components/SignUp/UserForm';
@@ -63,14 +63,7 @@ TestStack.navigationOptions = {
 //   SignUp: RegisterScreen,
 //   Profile: Profile,
 // });
-const LoginStack = createStackNavigator({
-  Login: LoginScreen,
-  SignUp: RegisterScreen,
-  Profile: Profile,
-},
-{
-  headerMode: 'none',
-});
+
 
 // LoginStack.navigationOptions = {
 //   tabBarLabel: 'Login',

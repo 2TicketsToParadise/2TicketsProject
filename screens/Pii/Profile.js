@@ -74,7 +74,7 @@ import {
   Alert, KeyboardAvoidingView, ImageBackground,
   TouchableWithoutFeedback, Keyboard,
 } from 'react-native';
-import bgImage from '../assets/images/background.png';
+import bgImage from '../../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class SignUpView extends Component {
