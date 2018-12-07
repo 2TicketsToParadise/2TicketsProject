@@ -40,7 +40,8 @@ export default class ForgotPasswordScreen extends React.Component {
 
                 <View style={{ padding: 50, alignItems: 'center' }}>
 
-                    <Text style={{ fontSize: 50, color: 'white' }}>Forgot Password</Text>
+                    <Text style={{ fontSize: 50, color: 'white' }}>Forgot</Text>
+                    <Text style={{ fontSize: 50, color: 'white' }}>Password</Text>
                     <TextInput style={styles.textInputField}
                         value={this.state.email}
                         onChangeText={(text) => { this.setState({ email: text }) }}

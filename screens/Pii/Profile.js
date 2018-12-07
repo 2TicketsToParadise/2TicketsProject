@@ -1,7 +1,14 @@
-import React from 'react';
-import { Text, View, StyleSheet, } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet, Text, View, TextInput, Platform,
+  Button, TouchableHighlight, Image,
+  Alert, KeyboardAvoidingView, ImageBackground,
+  TouchableWithoutFeedback, Keyboard,
+} from 'react-native';
+import bgImage from '../../assets/images/background.png';
+import Icon from 'react-native-vector-icons/Ionicons';
 import dbCall from '../../constants/dbCall';
-
+import * as firebase from 'firebase';
 
 
 export default class CallTest extends React.Component {
@@ -20,41 +27,27 @@ export default class CallTest extends React.Component {
   }
 
 
-  componentDidMount() {
-    return dbCall('select * from users where age = 29;', function (responseData) {
-      // Note: This function will be executed inside of the dbCall function when the API responds with data
+  componentDidMount(){
+    return fetch('https://twoticketsdatabase.herokuapp.com/', 
+    {method: 'POST', headers: {Accept: 'application/json', 
+    'Content-Type': 'application/json',}, body: JSON.stringify({query : 'select * from users'}),})
+      .then((response) => response.json())
+      .then((responseJson) => {
 
-      // TODO: Add Safety checks -> length of responseData
-      var state = {
-        isLoading: false,
-        firstName: responseData[0].firstName,
-        lastName: responseData[0].lastName,
-        age: responseData[0].age,
-        weight: responseData[0].weight,
-        height: responseData[0].height
-      };
-      this.setState(state, function () {
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson.data,
+        
+        }, function(){
 
-      });
-
-
-
-
-
-      return fetch('https://facebook.github.io/react-native/movies.json')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            isLoading: false,
-            dataSource: responseJson.movies
-          }, function () { });
-        })
-        .catch((error) => {
-          console.error(error);
         });
 
-    });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   }
+
 
 
   // <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
@@ -62,6 +55,13 @@ export default class CallTest extends React.Component {
 
 
   render() {
+    if (this.state.isLoading) {
+        return (
+            <View style={{ flex: 1, padding: 20 }}>
+                <ActivityIndicator />
+            </View>
+        )
+    }
     return (
       <ImageBackground source={bgImage} style={styles.backgroundContainer}>
         <KeyboardAvoidingView behavior="padding" style={styles.container} >
