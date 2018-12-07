@@ -13,18 +13,19 @@ import RegisterScreen from '../screens/RegisterScreen';
 import weightLifting from '../screens/weightLifting';
 // import CalendarScreen from '../screens/calendarScreen';
 import HistoryScreen from '../screens/historyScreen';
+import cardio from '../screens/cardio';
 
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: weightLifting,
+const WeightsStack = createStackNavigator({
+  Weights: weightLifting,
 },
 {
   headerMode: 'none',
 });
 
-HomeStack.navigationOptions = {
+WeightsStack.navigationOptions = {
   tabBarLabel: 'Weight Lifting',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -38,10 +39,29 @@ HomeStack.navigationOptions = {
   ),
 };
 
+const CardioStack = createStackNavigator({
+  Cardio: cardio,
+  
+  Profile: Profile,
+  
+},
+{
+  headerMode: 'none',
+});
+
+CardioStack.navigationOptions = {
+  tabBarLabel: 'Cardio',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-nuclear' : 'md-nuclear'}
+    />
+  ),
+};
+
 const TestStack = createStackNavigator({
   Test: TestScreen,
   
-  Profile: Profile,
   
 },
 {
@@ -57,6 +77,8 @@ TestStack.navigationOptions = {
     />
   ),
 };
+
+
 
 // const LoginStack = createStackNavigator({
 //   Login: LoginScreen,
@@ -104,10 +126,11 @@ TestStack.navigationOptions = {
 // };
 
 export default createBottomTabNavigator({
-  
-  TestStack, 
+  TestStack,
+  CardioStack, 
   // UserStack,
-  HomeStack,
+  WeightsStack,
+ 
   
-  // SettingsStack,
+ 
 });

@@ -6,6 +6,7 @@
 import React from 'react';
 import { Text, View, } from 'react-native';
 import { dbCall } from '../constants/dbCall';
+import * as firebase from 'firebase';
 
 
 
@@ -20,7 +21,7 @@ export default class CallTest extends React.Component {
             age: '',
             weight: '',
             height: '',
-            uuid: '',
+            uuid: (firebase.auth().currentUser || {}).uid,
         };
     }
 
