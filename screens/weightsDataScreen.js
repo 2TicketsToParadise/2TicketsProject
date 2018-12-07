@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList,Text, View, ActivityIndicator } from 'react-native';
 import {dbCall} from '../constants/dbCall';
+import * as firebase from 'firebase';
 
 export default class CallTest extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class CallTest extends React.Component {
         this.state = { isLoading: true };
 
         this.state = {
-            uuid: 'wlkdjflsdkfjdsfic',
+            uuid: (firebase.auth().currentUser || {}).uid,
             exerciseid: '',
             dataSource:''
         };
