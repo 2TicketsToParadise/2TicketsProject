@@ -5,6 +5,7 @@ import { ImageBackground, Image, Alert,
   TouchableWithoutFeedback, Keyboard, Switch, Platform} from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 import {dbCall} from '../constants/dbCall';
+import * as firebase from 'firebase';
 
  
 

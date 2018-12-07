@@ -5,6 +5,7 @@ import { ImageBackground, Image, Alert,
   TouchableWithoutFeedback, Keyboard, Switch, Platform} from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 import {dbCall} from '../constants/dbCall';
+import * as firebase from 'firebase';
 
  
 import bgImage from '../assets/images/background.png';
@@ -37,7 +38,7 @@ export default class cardio extends React.Component {
   
   onClickListener = (viewId) => {
     if (this.state.distance > 0 && this.state.duration > 0 && this.state.heartRate > 0 && this.state.textInputValue != ''){
-        Alert.alert("Congratulations", "You've just recorded "+this.state.duration+" sets of "+this.state.distance+" at "+this.state.heartRate+" pounds for the "+viewId);
+        Alert.alert("Congratulations", "You did "+this.state.duration+" minutes of "+viewId+" and travled "+this.state.distance+" with an average heart rate of "+this.state.heartRate);
         
         exerciseid= viewId;
 
@@ -58,8 +59,6 @@ export default class cardio extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
-
-    let firstInpHolder = 'Disntance Traveled';
 
     let index = 0;
     const data = [
@@ -104,7 +103,7 @@ export default class cardio extends React.Component {
                 <View style={styles.inputContainer}>
                     <TextInput 
                         style={styles.input}
-                        placeholder= {firstInpHolder}
+                        placeholder= {'Distance Traveled'}
                         keyboardType='number-pad'
                         returnKeyType= 'done'
                         placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
@@ -129,7 +128,7 @@ export default class cardio extends React.Component {
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        placeholder={'Heart Rate'}
+                        placeholder={'Heart Rate (Average'}
                         keyboardType='number-pad'
                         returnKeyType= 'done'
                         placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
