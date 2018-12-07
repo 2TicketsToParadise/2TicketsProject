@@ -24,19 +24,19 @@ export default class calendar extends React.Component {
 
         return (
             <ImageBackground source={bgImage} style = {styles.backgroundContainer}>
-                <ScßrollView contentContainerStyle={styles.container}>
+                <ScrollView contentContainerStyle={styles.container}>
                     <TouchableOpacity onPress={this._onPressButton}
-                                      style={styles.btnLogin}  onPress={() => navigate('cD')}>
+                                      style={styles.btnLogin}  onPress={() => navigate('cDS')}>
 
                         <Text style={styles.text} >Past Cardio Data</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this._onPressButton}
-                                      style={styles.btnLogin}  onPress={() => navigate('wD')}>
+                                      style={styles.btnLogin}  onPress={() => navigate('wDS')}>
 
                         <Text style={styles.text} >Past Weights Data</Text>
                     </TouchableOpacity>
 
-                </ScßrollView>
+                </ScrollView>
             </ImageBackground>
         );
     }

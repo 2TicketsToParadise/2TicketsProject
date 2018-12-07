@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import {Text, View, StyleSheet, ImageBackground, TouchableOpacity, Dimensions} from 'react-native';
 import { dbCall } from '../../constants/dbCall';
 import * as firebase from 'firebase';
 import SignoutButton from '../../components/AppComponents/SignoutButton';
 import bgImage from '../../assets/images/background.png';
 
+
+const { width: WIDTH } = Dimensions.get('window');
 
 
 export default class ViewProfile extends React.Component {
@@ -48,6 +50,7 @@ export default class ViewProfile extends React.Component {
 
 
     render() {
+        const {navigate} = this.props.navigation;
 
         if (this.state.isLoading) {
             return (
@@ -78,6 +81,12 @@ export default class ViewProfile extends React.Component {
                     {/* BMI=weight/(height*height) in kg and cm */}
                     <Text style={styles.textStyle}>BMI: 24.9</Text>
 
+                    <TouchableOpacity onPress={this._onPressButton}
+                                      style={styles.btnLogin}  onPress={() => navigate('dNS')}>
+
+                        <Text style={styles.text} >Exercise Data</Text>
+                    </TouchableOpacity>
+
                     <SignoutButton />
 
 
@@ -99,6 +108,20 @@ const styles = StyleSheet.create({
         height: null,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    btnLogin: {
+        width: (WIDTH/2),
+        height: 45,
+        borderRadius: 45,
+        backgroundColor: 'rgba(70, 70, 70, 0.7)',
+        marginBottom: 20,
+    },
+    text: {
+        color: 'rgba(255, 255, 255, 1)',
+        fontSize: 22,
+        textAlign: 'center',
+        paddingTop: 5,
+
     },
 
 
