@@ -47,7 +47,6 @@ WeightsStack.navigationOptions = {
 
 const CardioStack = createStackNavigator({
   Cardio: cardio,
-  
   Profile: Profile,
   
 },
@@ -60,7 +59,7 @@ CardioStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-nuclear' : 'md-nuclear'}
+      name={Platform.OS === 'ios' ? 'ios-walk' : 'md-walk'}
     />
   ),
 };
@@ -80,7 +79,7 @@ const TestStack = createStackNavigator({
 });
 
 TestStack.navigationOptions = {
-  tabBarLabel: 'Cardio',
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
