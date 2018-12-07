@@ -3,29 +3,34 @@ import { ImageBackground, Image, Alert,
   StyleSheet, Text, TextInput, View, 
   TouchableOpacity, Dimensions, KeyboardAvoidingView,
   TouchableWithoutFeedback, Keyboard, Switch, Platform} from 'react-native';
-import ModalSelector from 'react-native-modal-selector'
+import ModalSelector from 'react-native-modal-selector';
+import {dbCall} from '../constants/dbCall';
 
  
-//import { TestComponent } from './../components/AppComponents';
 import bgImage from '../assets/images/background.png';
-import exerImage from '../assets/images/dumbbell.png';
+import exerImage from '../assets/images/cardio.png';
 
 const { width: WIDTH } = Dimensions.get('window')
 
-export default class LoginScreen extends React.Component {
+export default class cardio extends React.Component {
   
   //Top banner
   static navigationOptions = {
     title: 'Cardio',
   };
 
+
+
   constructor(props) {
     super(props);
     this.state = {
-      distance: '',
-      duration: '',
-      heartRate: '',
-      textInputValue: '',
+      userId: (firebase.auth().currentUser || {}).uid,
+      exerciseid: null,
+      distance: null,
+      duration: null,
+      heartRate: null,
+      textInputValue: null,
+      steps: null,
     };
 
   }
@@ -33,21 +38,33 @@ export default class LoginScreen extends React.Component {
   onClickListener = (viewId) => {
     if (this.state.distance > 0 && this.state.duration > 0 && this.state.heartRate > 0 && this.state.textInputValue != ''){
         Alert.alert("Congratulations", "You've just recorded "+this.state.duration+" sets of "+this.state.distance+" at "+this.state.heartRate+" pounds for the "+viewId);
-        //add code for adding data to db and probably a screen change if we want?
+        
+        exerciseid= viewId;
+
+        var test = 'insert into cardio (UUID, exerciseid, cdate, duration, distance, heartrate, steps) values (\''+ this.state.uuid+ '\',\''+this.state.exerciseid+'\',current_timestamp,'+this.state.duration+','+this.state.distance+','+this.state.heartrate+','+this.state.steps+');';
+        console.log(test);
+        this.setState({duration: ''});
+        this.setState({distance: ''});
+        this.setState({heartRate: ''});
+        this.setState({textInputValue: ''});
+        return dbCall(test,this, function( responseData,component ) {
+          // Note: This function will be executed inside of the dbCall function when the API responds with data
+        });
     }
     else{
-        Alert.alert("You didn't enter all of you workout info!")
+        Alert.alert("You didn't enter all of you workout info!");
     }
   }
 
   render() {
     const {navigate} = this.props.navigation;
 
+    let firstInpHolder = 'Disntance Traveled';
+
     let index = 0;
     const data = [
         { key: index++, section: true, label: 'Cardio Options' },
         { key: index++, label: 'Rowing' },
-        { key: index++, label: 'Stair Climber' },
         { key: index++, label: 'Running' },
         { key: index++, label: 'Jogging' },
         { key: index++, label: 'Hiking' },
@@ -87,35 +104,38 @@ export default class LoginScreen extends React.Component {
                 <View style={styles.inputContainer}>
                     <TextInput 
                         style={styles.input}
-                        placeholder={'Distance Traveled'}
+                        placeholder= {firstInpHolder}
                         keyboardType='number-pad'
                         returnKeyType= 'done'
                         placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                         underlineColorAndroid='transparent'
                         onChangeText={(distance) => this.setState({distance})}
+                        value={this.state.distance}
                     />
                 </View>
 
                 <View style={styles.inputContainer}>
                     <TextInput 
-                    style={styles.input}
-                    placeholder={'Duration of Workout'}
-                    keyboardType='number-pad'
-                    returnKeyType= 'done'
-                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                    underlineColorAndroid='transparent'
-                    onChangeText={(duration) => this.setState({duration})}
+                        style={styles.input}
+                        placeholder={'Duration of Workout'}
+                        keyboardType='number-pad'
+                        returnKeyType= 'done'
+                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                        underlineColorAndroid='transparent'
+                        onChangeText={(duration) => this.setState({duration})}
+                        value={this.state.duration}
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <TextInput 
+                    <TextInput
                         style={styles.input}
                         placeholder={'Heart Rate'}
                         keyboardType='number-pad'
                         returnKeyType= 'done'
-                        placeholderTextColor={'rgba(255, 255, 255, 0.8)'}
+                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                         underlineColorAndroid='transparent'
                         onChangeText={(heartRate) => this.setState({heartRate})}
+                        value={this.state.heartRate}
                     />
                 </View>
                 <TouchableOpacity

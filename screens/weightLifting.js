@@ -3,16 +3,17 @@ import { ImageBackground, Image, Alert,
   StyleSheet, Text, TextInput, View, 
   TouchableOpacity, Dimensions, KeyboardAvoidingView,
   TouchableWithoutFeedback, Keyboard, Switch, Platform} from 'react-native';
-import ModalSelector from 'react-native-modal-selector'
+import ModalSelector from 'react-native-modal-selector';
+import {dbCall} from '../constants/dbCall';
 
  
-//import { TestComponent } from './../components/AppComponents';
+
 import bgImage from '../assets/images/background.png';
 import exerImage from '../assets/images/dumbbell.png';
 
 const { width: WIDTH } = Dimensions.get('window')
 
-export default class LoginScreen extends React.Component {
+export default class weightLifting extends React.Component {
   
   //Top banner
   static navigationOptions = {
@@ -22,10 +23,13 @@ export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: (firebase.auth().currentUser || {}).uid,
+      exerciseId: null,
       reps: '',
       sets: '',
       weight: '',
       textInputValue: '',
+      onerepmax: null,
     };
 
   }
@@ -33,10 +37,19 @@ export default class LoginScreen extends React.Component {
   onClickListener = (viewId) => {
     if (this.state.reps > 0 && this.state.sets > 0 && this.state.weight > 0 && this.state.textInputValue != ''){
         Alert.alert("Congratulations", "You've just recorded "+this.state.sets+" sets of "+this.state.reps+" at "+this.state.weight+" pounds for the "+viewId);
-        //add code for adding data to db and probably a screen change if we want?
+        
+        exerciseid=viewId;
+
+        var test = 'insert into weights (UUID, exerciseid, wdate, sets, reps, weight, onerepmax) values (\''+ this.state.uuid+ '\',\''+this.state.exerciseid+'\',current_timestamp,'+this.state.sets+','+this.state.reps+','+this.state.weight+','+this.state.onerepmax+');';
+        console.log(test);
+        this.setState({reps: ''});
+        this.setState({sets: ''});
+        this.setState({weight: ''});
+        this.setState({textInputValue: ''});
+        return dbCall(test,this, function( responseData,component ){});
     }
     else{
-        Alert.alert("You didn't enter all of you workout info!")
+        Alert.alert("You didn't enter all of you workout info!");
     }
   }
 
@@ -97,6 +110,7 @@ export default class LoginScreen extends React.Component {
                         placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                         underlineColorAndroid='transparent'
                         onChangeText={(reps) => this.setState({reps})}
+                        value = {this.state.reps}
                     />
                 </View>
 
@@ -109,6 +123,7 @@ export default class LoginScreen extends React.Component {
                         placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                         underlineColorAndroid='transparent'
                         onChangeText={(sets) => this.setState({sets})}
+                        value = {this.state.sets}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -117,9 +132,10 @@ export default class LoginScreen extends React.Component {
                         placeholder={'Weight (lbs)'}
                         keyboardType='number-pad'
                         returnKeyType= 'done'
-                        placeholderTextColor={'rgba(255, 255, 255, 0.8)'}
+                        placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                         underlineColorAndroid='transparent'
                         onChangeText={(weight) => this.setState({weight})}
+                        value = {this.state.weight}
                     />
                 </View>
                 <TouchableOpacity
