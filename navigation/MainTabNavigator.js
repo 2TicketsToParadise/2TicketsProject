@@ -5,24 +5,27 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 //import HomeScreen from '../screens/HomeScreen';
 import TestScreen from '../screens/TestScreen';
-import LoginScreen from '../screens/LoginScreen';
+// import LoginScreen from '../screens/LoginScreen';
+// import RegisterScreen from '../screens/RegisterScreen';
+import Profile from '../screens/Pii/Profile';
+// import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import Profile from '../screens/cardio';
 import weightLifting from '../screens/weightLifting';
-import CalendarScreen from '../screens/calendarScreen';
+// import CalendarScreen from '../screens/calendarScreen';
 import HistoryScreen from '../screens/historyScreen';
+import cardio from '../screens/cardio';
 
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: weightLifting,
+const WeightsStack = createStackNavigator({
+  Weights: weightLifting,
 },
 {
   headerMode: 'none',
 });
 
-HomeStack.navigationOptions = {
+WeightsStack.navigationOptions = {
   tabBarLabel: 'Weight Lifting',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -36,9 +39,30 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const TestStack = createStackNavigator({
+const CardioStack = createStackNavigator({
+  Cardio: cardio,
+  
   Profile: Profile,
+  
+},
+{
+  headerMode: 'none',
+});
+
+CardioStack.navigationOptions = {
+  tabBarLabel: 'Cardio',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-nuclear' : 'md-nuclear'}
+    />
+  ),
+};
+
+const TestStack = createStackNavigator({
   Test: TestScreen,
+  
+  
 },
 {
   headerMode: 'none',
@@ -54,24 +78,24 @@ TestStack.navigationOptions = {
   ),
 };
 
-const LoginStack = createStackNavigator({
-  Login: LoginScreen,
-  SignUp: RegisterScreen,
-  Profile: Profile,
-},
-{
-  headerMode: 'none',
-});
 
-LoginStack.navigationOptions = {
-  tabBarLabel: 'Login',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-walk' : 'md-walk'}
-    />
-  ),
-};
+
+// const LoginStack = createStackNavigator({
+//   Login: LoginScreen,
+//   SignUp: RegisterScreen,
+//   Profile: Profile,
+// });
+
+
+// LoginStack.navigationOptions = {
+//   tabBarLabel: 'Login',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-walk' : 'md-walk'}
+//     />
+//   ),
+// };
 
 // const UserStack = createStackNavigator({
 //   User: UserForm,
@@ -102,10 +126,11 @@ LoginStack.navigationOptions = {
 // };
 
 export default createBottomTabNavigator({
-  LoginStack,
-  TestStack, 
+  TestStack,
+  CardioStack, 
   // UserStack,
-  HomeStack,
+  WeightsStack,
+ 
   
-  // SettingsStack,
+ 
 });

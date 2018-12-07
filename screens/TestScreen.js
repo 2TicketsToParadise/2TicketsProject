@@ -1,125 +1,148 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet, Text, View, TextInput, Platform,
-  Button, TouchableHighlight, Image,
-  Alert, KeyboardAvoidingView, ImageBackground,
-  TouchableWithoutFeedback, Keyboard,
-} from 'react-native';
-import bgImage from '../assets/images/background.png';
-import Icon from 'react-native-vector-icons/Ionicons';
-import ModalSelector from 'react-native-modal-selector'
+//moved CallTest.js to test screen for easier testing 
 
-export default class SampleApp extends React.Component {
+//UserInfo.js returns a "non-fatal" error: Warning: Each child in an array or iterator should have a unique "key" prop.%s%s 
+//See https://fb.me/react-warning-keys for more information.%s, which causes loading of infor to be slow
 
+import React from 'react';
+import { Text, View, } from 'react-native';
+import { dbCall } from '../constants/dbCall';
+import * as firebase from 'firebase';
+import SignoutButton from '../components/AppComponents/SignoutButton';
+
+
+
+export default class CallTest extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { isLoading: true }
 
         this.state = {
-            textInputValue: ''
-        }
+            firstName: '',
+            lastName: '',
+            age: '',
+            weight: '',
+            height: '',
+            uuid: (firebase.auth().currentUser || {}).uid,
+        };
     }
 
+
+    componentDidMount() {
+
+
+        return dbCall('select * from users where age = 75;', this, function (responseData, component) {
+            // Note: This function will be executed inside of the dbCall function when the API responds with data
+
+            // TODO: Add Safety checks -> length of responseData
+            var state = {
+                isLoading: false,
+                firstName: responseData[0].firstname,
+                lastName: responseData[0].lastname,
+                age: responseData[0].age,
+                weight: responseData[0].weight,
+                height: responseData[0].height
+            };
+            component.setState(state, function () {
+            });
+        });
+    }
+
+
+
+
     render() {
-        let index = 0;
-        const data = [
-            { key: index++, section: true, label: 'Fruits' },
-            { key: index++, label: 'Red Apples' },
-            { key: index++, label: 'Cherries' },
-            { key: index++, label: 'Cranberries', accessibilityLabel: 'Tap here for cranberries' },
-            // etc...
-            // Can also add additional custom keys which are passed to the onChange callback
-            { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
-        ];
 
+        if (this.state.isLoading) {
+            return (
+                <View style={{ flex: 1, padding: 20 }}>
+                    <ActivityIndicator />
+                </View>
+            )
+        }
         return (
-            <View style={{flex:1, justifyContent:'space-around', padding:50}}>
+            <View>
+                <Text> {this.state.firstName}</Text>
+                <Text>{this.state.lastName} </Text>
+                <Text> Age: {this.state.age} </Text>
+                <Text> Weight: {this.state.weight} </Text>
+                <Text> Height: {this.state.height} </Text>
+                <SignoutButton />
 
-                {/* // Default mode */}
-                <ModalSelector
-                    data={data}
-                    initValue="Select something yummy!"
-                    onChange={(option)=>{ alert(`${option.label} (${option.key}) nom nom nom`) }} />
-
-                {/* // Wrapper
-                <ModalSelector
-                //     data={data}
-                //     initValue="Select something yummy!"
-                //     accessible={true}
-                //     scrollViewAccessibilityLabel={'Scrollable options'}
-                //     cancelButtonAccessibilityLabel={'Cancel Button'}
-                //     onChange={(option)=>{ this.setState({textInputValue:option.label})}}>
-
-                //     <TextInput
-                //         style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
-                //         editable={false}
-                //         placeholder="Select something yummy!"
-                //         value={this.state.textInputValue} />
-
-                // </ModalSelector>
-
-                {/* //Custom component */}
-                {/* <ModalSelector
-                    data={data}
-                    ref={selector => { this.selector = selector; }}
-                    customSelector={<Switch onValueChange={() => this.selector.open()} />}
-                /> */}
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    //backgroundColor: '#00b5ec',
-  },
-  inputContainer: {
-    borderBottomColor: '#F5FCFF',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius:30,
-    borderBottomWidth: 1,
-    width:250,
-    height:45,
-    marginBottom:20,
-    flexDirection: 'row',
-    alignItems:'center'
-  },
-  inputs:{
-    height:45,
-    marginLeft:16,
-    borderBottomColor: '#FFFFFF',
-    flex:1,
-    color: 'rgba(255, 255, 255, 0.7)',
-  },
-  inputIcon:{
-    width:30,
-    height:30,
-    marginLeft:15,
-    justifyContent: 'center'
-  },
-  backgroundContainer: {
-    flex: 1,
-    width: null,
-    height: null,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    height:45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
-  },
-  signupButton: {
-    backgroundColor: '#rgba(255, 255, 255, 0.8)',
-  },
-  signUpText: {
-    color: 'black',
-    fontSize: 24,
-  }
-});
+
+
+
+
+// import React, { Component } from 'react';
+// import {
+//   StyleSheet, Text, View, Button, 
+// } from 'react-native';
+// import * as firebase from 'firebase';
+// import TestComponent from '../components/AppComponents/TestComponent';
+// import dbCall from '../constants/dbCall';
+// import { FirebaseUid } from '../components/AppComponents/FirebaseUid';
+// import SignoutButton from '../components/AppComponents/SignoutButton';
+
+
+
+// export default class SignUpView extends Component {
+
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       userId: (firebase.auth().currentUser || {}).uid,
+//     }
+//   }
+
+
+
+//   //Firebase Logout
+//   onSignoutPress = () => {
+//     firebase.auth().signOut();
+
+//   }
+//   //Show Firebase uid
+//   onUserPress = () => {
+//     userId = (firebase.auth().currentUser || {}).uid;
+//     console.log(userId)
+//   }
+
+
+
+//   render() {
+
+
+//     return (
+
+
+//       <View style={styles.container}>
+        
+//         <SignoutButton />
+//         <Text>Test Screen</Text>
+//         {/* show the TestComponent */}
+//         <TestComponent />
+//         <Text>{this.state.userId}</Text>
+        
+//         <Button title='Signout' onPress={this.onSignoutPress} />
+//         <Button title='User' onPress={this.onUserPress} />
+
+//       </View>
+//     );
+//   }
+// }
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#888'
+//   },
+  
+// });
