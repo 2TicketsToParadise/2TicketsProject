@@ -11,7 +11,7 @@ import dbCall from '../../constants/dbCall';
 import * as firebase from 'firebase';
 
 
-export default class CallTest extends React.Component {
+export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoading: true }
