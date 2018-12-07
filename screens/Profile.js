@@ -1,3 +1,72 @@
+// import React from 'react';
+// import { Text, View, } from 'react-native';
+// import { dbCall } from '../constants/dbCall';
+
+
+
+// export default class CallTest extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = { isLoading: true }
+
+//         this.state = {
+//             firstName: '',
+//             lastName: '',
+//             age: '',
+//             weight: '',
+//             height: '',
+//             uuid: '',
+//         };
+//     }
+
+
+//     componentDidMount() {
+
+
+//         return dbCall('select * from users where age = 75;', this, function (responseData, component) {
+//             // Note: This function will be executed inside of the dbCall function when the API responds with data
+
+//             // TODO: Add Safety checks -> length of responseData
+//             var state = {
+//                 isLoading: false,
+//                 firstName: responseData[0].firstname,
+//                 lastName: responseData[0].lastname,
+//                 age: responseData[0].age,
+//                 weight: responseData[0].weight,
+//                 height: responseData[0].height
+//             };
+//             component.setState(state, function () {
+//             });
+//         });
+//     }
+
+
+
+
+//     render() {
+
+//         if (this.state.isLoading) {
+//             return (
+//                 <View style={{ flex: 1, padding: 20 }}>
+//                     <ActivityIndicator />
+//                 </View>
+//             )
+//         }
+//         return (
+//             <View>
+//                 <Text> {this.state.firstName}</Text>
+//                 <Text>{this.state.lastName} </Text>
+//                 <Text> Age: {this.state.age} </Text>
+//                 <Text> Weight: {this.state.weight} </Text>
+//                 <Text> Height: {this.state.height} </Text>
+
+//             </View>
+//         );
+//     }
+// }
+
+
+
 import React, { Component } from 'react';
 import {
   StyleSheet, Text, View, TextInput, Platform,
@@ -40,47 +109,51 @@ export default class SignUpView extends Component {
           <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
             <View style={styles.container}>
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/> 
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="First Name"
                     keyboardType="email-address"
                     underlineColorAndroid='transparent'
+                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(firstName) => this.setState({firstName})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Last Name"
                     keyboardType="email-address"
                     underlineColorAndroid='transparent'
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(lastName) => this.setState({lastName})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'}
+                <Icon name={'md-person'}
                      style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Height"
                     underlineColorAndroid='transparent'
+                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(height) => this.setState({height})}/>
               </View>
               
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} 
+                <Icon name={'md-person'}
                     style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <TextInput style={styles.inputs}
                     placeholder="Weight"
                     underlineColorAndroid='transparent'
+                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
                     onChangeText={(weight) => this.setState({weight})}/>
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={Platform.OS === 'ios' ? 'ios-person-outline' : 'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
                 <Picker
                   selectedValue={this.state.gender}
                   onValueChange={gender => this.setState({ gender })}
-                  style = {{ color: 'rgba(255, 255, 255, 0.7)', width: 260,  } }
+                  style = {{ color: 'rgba(255, 255, 255, 0.7)', width: 260} }
                   mode="dropdown">
                   <Picker.Item label="Male" value="male" />
                   <Picker.Item label="Female" value="female" />

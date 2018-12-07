@@ -1,10 +1,5 @@
 //moved CallTest.js to test screen for easier testing 
 
-
-//TypeError: TypeError: TypeError: Object is not a function (near '...(0, _dbCall.default)...')
-//occurs when code is ran
-
-
 //UserInfo.js returns a "non-fatal" error: Warning: Each child in an array or iterator should have a unique "key" prop.%s%s 
 //See https://fb.me/react-warning-keys for more information.%s, which causes loading of infor to be slow
 
@@ -69,10 +64,12 @@ export default class CallTest extends React.Component {
                 <Text> Age: {this.state.age} </Text>
                 <Text> Weight: {this.state.weight} </Text>
                 <Text> Height: {this.state.height} </Text>
+
             </View>
         );
     }
 }
+
 
 
 

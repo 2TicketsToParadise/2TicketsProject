@@ -3,20 +3,29 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+//import HomeScreen from '../screens/HomeScreen';
 import TestScreen from '../screens/TestScreen';
 // import LoginScreen from '../screens/LoginScreen';
 // import RegisterScreen from '../screens/RegisterScreen';
 import Profile from '../screens/Profile';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import weightLifting from '../screens/weightLifting';
+import CalendarScreen from '../screens/calendarScreen';
+import HistoryScreen from '../screens/historyScreen';
+
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: weightLifting,
+},
+{
+  headerMode: 'none',
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Weight Lifting',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -34,10 +43,13 @@ const TestStack = createStackNavigator({
   
   Profile: Profile,
   
+},
+{
+  headerMode: 'none',
 });
 
 TestStack.navigationOptions = {
-  tabBarLabel: 'Test',
+  tabBarLabel: 'Cardio',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -51,6 +63,14 @@ TestStack.navigationOptions = {
 //   SignUp: RegisterScreen,
 //   Profile: Profile,
 // });
+const LoginStack = createStackNavigator({
+  Login: LoginScreen,
+  SignUp: RegisterScreen,
+  Profile: Profile,
+},
+{
+  headerMode: 'none',
+});
 
 // LoginStack.navigationOptions = {
 //   tabBarLabel: 'Login',

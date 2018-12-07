@@ -23,6 +23,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
     "react-native-firebase": "^5.1.1",
+    "react-native-calendars": "^1.21.0",
+    "react-native-modal-selector": "^1.0.0",
+    "react-native-table-component": "^1.1.8",
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
