@@ -1,172 +1,146 @@
-// import React from 'react';
-// import { Text, View, } from 'react-native';
-// import { dbCall } from '../constants/dbCall';
-
-
-
-// export default class CallTest extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = { isLoading: true }
-
-//         this.state = {
-//             firstName: '',
-//             lastName: '',
-//             age: '',
-//             weight: '',
-//             height: '',
-//             uuid: '',
-//         };
-//     }
-
-
-//     componentDidMount() {
-
-
-//         return dbCall('select * from users where age = 75;', this, function (responseData, component) {
-//             // Note: This function will be executed inside of the dbCall function when the API responds with data
-
-//             // TODO: Add Safety checks -> length of responseData
-//             var state = {
-//                 isLoading: false,
-//                 firstName: responseData[0].firstname,
-//                 lastName: responseData[0].lastname,
-//                 age: responseData[0].age,
-//                 weight: responseData[0].weight,
-//                 height: responseData[0].height
-//             };
-//             component.setState(state, function () {
-//             });
-//         });
-//     }
-
-
-
-
-//     render() {
-
-//         if (this.state.isLoading) {
-//             return (
-//                 <View style={{ flex: 1, padding: 20 }}>
-//                     <ActivityIndicator />
-//                 </View>
-//             )
-//         }
-//         return (
-//             <View>
-//                 <Text> {this.state.firstName}</Text>
-//                 <Text>{this.state.lastName} </Text>
-//                 <Text> Age: {this.state.age} </Text>
-//                 <Text> Weight: {this.state.weight} </Text>
-//                 <Text> Height: {this.state.height} </Text>
-
-//             </View>
-//         );
-//     }
-// }
-
-
-
 import React, { Component } from 'react';
 import {
   StyleSheet, Text, View, TextInput, Platform,
-  Button, TouchableHighlight, Image, Picker,
+  Button, TouchableHighlight, Image,
   Alert, KeyboardAvoidingView, ImageBackground,
   TouchableWithoutFeedback, Keyboard,
 } from 'react-native';
 import bgImage from '../../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
+import dbCall from '../../constants/dbCall';
+import * as firebase from 'firebase';
 
-export default class SignUpView extends Component {
 
-  constructor() {
-    super()
-      this.state = {
-        firstName: '',
-        lastName: '',
-        email   : '',
-        password: '',
+export default class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isLoading: true }
+
+    this.state = {
+      firstName: '',
+      lastName: '',
+      age: '',
+      weight: '',
+      height: '',
+      uuid: (firebase.auth().currentUser || {}).uid,
     };
   }
 
-  state = {
-    gender: 'male',
+
+  componentDidMount(){
+    return fetch('https://twoticketsdatabase.herokuapp.com/', 
+    {method: 'POST', headers: {Accept: 'application/json', 
+    'Content-Type': 'application/json',}, body: JSON.stringify({query : 'select * from users'}),})
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson.data,
+        
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   }
 
-  onClickListener = (viewId) => {
-    console.log(this.state);
 
-    Alert.alert("Alert", "Button pressed "+viewId);
-  }
-// <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
-// source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
+
+  // <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+  // source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
 
 
   render() {
+    if (this.state.isLoading) {
+        return (
+            <View style={{ flex: 1, padding: 20 }}>
+                <ActivityIndicator />
+            </View>
+        )
+    }
     return (
-      <ImageBackground source={bgImage} style = {styles.backgroundContainer}>        
+      <ImageBackground source={bgImage} style={styles.backgroundContainer}>
         <KeyboardAvoidingView behavior="padding" style={styles.container} >
-          <TouchableWithoutFeedback style = {styles.container} onPress={Keyboard.dismiss}>
+          <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
             <View style={styles.container}>
               <View style={styles.inputContainer}>
-                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
                 <TextInput style={styles.inputs}
-                    placeholder="First Name"
-                    keyboardType="email-address"
-                    underlineColorAndroid='transparent'
-                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                    onChangeText={(firstName) => this.setState({firstName})}/>
+                  placeholder="First Name"
+                  keyboardType="email-address"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ firstName: text }) }}
+                />
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
                 <TextInput style={styles.inputs}
-                    placeholder="Last Name"
-                    keyboardType="email-address"
-                    underlineColorAndroid='transparent'
-                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                    onChangeText={(lastName) => this.setState({lastName})}/>
+                  placeholder="Last Name"
+                  keyboardType="email-address"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ lastName: text }) }}
+                />
               </View>
 
               <View style={styles.inputContainer}>
                 <Icon name={'md-person'}
-                     style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                  style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
                 <TextInput style={styles.inputs}
-                    placeholder="Height"
-                    underlineColorAndroid='transparent'
-                           placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                    onChangeText={(height) => this.setState({height})}/>
-              </View>
-              
-              <View style={styles.inputContainer}>
-                <Icon name={'md-person'}
-                    style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
-                <TextInput style={styles.inputs}
-                    placeholder="Weight"
-                    underlineColorAndroid='transparent'
-                    placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-                    onChangeText={(weight) => this.setState({weight})}/>
+                  placeholder="Age"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ age: text }) }}
+                />
               </View>
 
               <View style={styles.inputContainer}>
-                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28}/>
+                <Icon name={'md-person'}
+                  style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
+                <TextInput style={styles.inputs}
+                  placeholder="Weight"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ weight: text }) }}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Icon name={'md-person'}
+                  style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
+                <TextInput style={styles.inputs}
+                  placeholder="Height"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ height: text }) }}
+                />
+              </View>
+
+              {/* <View style={styles.inputContainer}>
+                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
                 <Picker
                   selectedValue={this.state.gender}
                   onValueChange={gender => this.setState({ gender })}
-                  style = {{ color: 'rgba(255, 255, 255, 0.7)', width: 260} }
+                  style={{ color: 'rgba(255, 255, 255, 0.7)', width: 260 }}
                   mode="dropdown">
                   <Picker.Item label="Male" value="male" />
                   <Picker.Item label="Female" value="female" />
                 </Picker>
-              </View>
+              </View> */}
 
-              
+
 
               <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
                 <Text style={styles.signUpText}>Sign up</Text>
               </TouchableHighlight>
             </View>
-          </TouchableWithoutFeedback>      
+          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </ImageBackground>
     );
@@ -184,26 +158,26 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderBottomColor: '#F5FCFF',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius:30,
+    borderRadius: 30,
     borderBottomWidth: 1,
-    width:250,
-    height:45,
-    marginBottom:20,
+    width: 250,
+    height: 45,
+    marginBottom: 20,
     flexDirection: 'row',
-    alignItems:'center'
+    alignItems: 'center'
   },
-  inputs:{
-    height:45,
-    marginLeft:16,
+  inputs: {
+    height: 45,
+    marginLeft: 16,
     borderBottomColor: '#FFFFFF',
-    flex:1,
+    flex: 1,
     color: 'rgba(255, 255, 255, 0.7)',
-    
+
   },
-  inputIcon:{
-    width:30,
-    height:30,
-    marginLeft:15,
+  inputIcon: {
+    width: 30,
+    height: 30,
+    marginLeft: 15,
     justifyContent: 'center'
   },
   backgroundContainer: {
@@ -214,13 +188,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    height:45,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
   },
   signupButton: {
     backgroundColor: '#rgba(255, 255, 255, 0.8)',

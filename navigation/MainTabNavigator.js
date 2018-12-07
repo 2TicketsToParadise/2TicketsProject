@@ -14,6 +14,12 @@ import weightLifting from '../screens/weightLifting';
 // import CalendarScreen from '../screens/calendarScreen';
 import HistoryScreen from '../screens/historyScreen';
 import cardio from '../screens/cardio';
+import ViewProfile from '../screens/Pii/ViewProfile';
+
+
+import dataNavigator from '../screens/dataNavigatorScreen';
+import cardioDScreen from '../screens/cardioDataScreen';
+import weightsDScreen from '../screens/weightsDataScreen';
 
 //import UserForm from './../components/SignUp/UserForm';
 //import SettingsScreen from '../screens/SettingsScreen';
@@ -60,7 +66,12 @@ CardioStack.navigationOptions = {
 };
 
 const TestStack = createStackNavigator({
-  Test: TestScreen,
+    ViewProfile: ViewProfile,
+    dNS: dataNavigator,
+    cDS: cardioDScreen,
+    wDS: weightsDScreen,
+
+    Test: TestScreen,
   
   
 },
