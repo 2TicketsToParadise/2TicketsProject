@@ -1,8 +1,12 @@
 import React from 'react';
 import {
-    StyleSheet, Text, View, TextInput, Button, Alert,
+    StyleSheet, Text, View, TextInput, Button, Alert, ImageBackground, Dimensions,
 } from 'react-native';
 import * as firebase from 'firebase';
+import bgImage from '../../assets/images/background.png';
+
+
+
 
 
 
@@ -43,42 +47,48 @@ export default class SignupScreen extends React.Component {
     render() {
 
         return (
-            <View style={{ padding: 50, alignItems: 'center' }}>
-                <Text>Signup</Text>
+            <ImageBackground source={bgImage} style={styles.backgroundContainer}>
 
-                <TextInput style={{ width: 200, height: 40, borderWidth: 1 }}
-                    value={this.state.email}
-                    onChangeText={(text) => { this.setState({ email: text }) }}
-                    placeholder="Email"
-                    keyboardType='email-address'
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                />
-                <View styele={{ paddingTop: 10 }} />
+                <View style={{ padding: 50, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 50, color: 'white' }}>Signup</Text>
 
-                <TextInput style={{ width: 200, height: 40, borderWidth: 1 }}
-                    value={this.state.password}
-                    onChangeText={(text) => { this.setState({ password: text }) }}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                />
-                <View styele={{ paddingTop: 10 }} />
+                    <TextInput style={styles.textInputField}
+                        value={this.state.email}
+                        onChangeText={(text) => { this.setState({ email: text }) }}
+                        placeholder="Email"
+                        keyboardType='email-address'
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+                    <View style={{ paddingTop: 10 }} />
 
-                <TextInput style={{ width: 200, height: 40, borderWidth: 1 }}
-                    value={this.state.passwordConfirm}
-                    onChangeText={(text) => { this.setState({ passwordConfirm: text }) }}
-                    placeholder="Confirm Password"
-                    secureTextEntry={true}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                />
+                    <TextInput style={styles.textInputField}
+                        value={this.state.password}
+                        onChangeText={(text) => { this.setState({ password: text }) }}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+                    <View style={{ paddingTop: 10 }} />
 
-                <Button title='Signup' onPress={this.onSignupPress} />
-                <Button title='Back to Login' onPress={this.onBackToLoginPress} />
+                    <TextInput style={styles.textInputField}
+                        value={this.state.passwordConfirm}
+                        onChangeText={(text) => { this.setState({ passwordConfirm: text }) }}
+                        placeholder="Confirm Password"
+                        secureTextEntry={true}
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+                    <View style={{ paddingTop: 10 }} />
 
-            </View>
+                    <Button title='Signup' onPress={this.onSignupPress} />
+                    <View style={{ paddingTop: 10 }} />
+
+                    <Button title='Back to Login' onPress={this.onBackToLoginPress} />
+
+                </View>
+            </ImageBackground >
         );
 
 
@@ -88,5 +98,23 @@ export default class SignupScreen extends React.Component {
 
 
 const styles = StyleSheet.create({
+    backgroundContainer: {
+        flex: 1,
+        width: null,
+        height: null,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textInputField: {
+        width: 200,
+        height: 40,
+        borderWidth: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: 'white',
+        borderColor: 'white',
+        textAlign: 'center',
+        borderRadius: 20,
+
+    }
 
 });
