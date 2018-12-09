@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet, ImageBackground, TouchableOpacity, Dimensions} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
 import { dbCall } from '../../constants/dbCall';
 import * as firebase from 'firebase';
 import SignoutButton from '../../components/AppComponents/SignoutButton';
@@ -9,7 +9,7 @@ import bgImage from '../../assets/images/background.png';
 const { width: WIDTH } = Dimensions.get('window');
 
 
-export default class ViewProfile extends React.Component {
+export default class ViewUserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = { isLoading: true }
@@ -29,7 +29,7 @@ export default class ViewProfile extends React.Component {
     componentDidMount() {
 
 
-        return dbCall('select * from users where age = 75;', this, function (responseData, component) {
+        return dbCall('select * from users where UUID = \'' + this.state.uuid + '\';', this, function (responseData, component) {
             // Note: This function will be executed inside of the dbCall function when the API responds with data
 
             // TODO: Add Safety checks -> length of responseData
@@ -48,9 +48,9 @@ export default class ViewProfile extends React.Component {
 
 
 
-
     render() {
-        const {navigate} = this.props.navigation;
+        const { navigate } = this.props.navigation;
+
 
         if (this.state.isLoading) {
             return (
@@ -79,10 +79,13 @@ export default class ViewProfile extends React.Component {
 
 
                     {/* BMI=weight/(height*height) in kg and cm */}
-                    <Text style={styles.textStyle}>BMI: 24.9</Text>
+                    {/* BMI=weight/(height*height)*703 in lbs and in */}
+
+                    <Text style={styles.textStyle}>BMI: {parseFloat((this.state.weight / (this.state.height * this.state.height)) * 703).toFixed(2)}</Text>
+
 
                     <TouchableOpacity onPress={this._onPressButton}
-                                      style={styles.btnLogin}  onPress={() => navigate('dNS')}>
+                        style={styles.btnLogin} onPress={() => navigate('dNS')}>
 
                         <Text style={styles.text} >Exercise Data</Text>
                     </TouchableOpacity>
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     btnLogin: {
-        width: (WIDTH/2),
+        width: (WIDTH / 2),
         height: 45,
         borderRadius: 45,
         backgroundColor: 'rgba(70, 70, 70, 0.7)',

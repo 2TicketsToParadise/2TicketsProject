@@ -7,14 +7,15 @@ import TabBarIcon from '../components/TabBarIcon';
 import TestScreen from '../screens/TestScreen';
 // import LoginScreen from '../screens/LoginScreen';
 // import RegisterScreen from '../screens/RegisterScreen';
-import Profile from '../screens/Pii/Profile';
+import Profile from '../screens/Pii/InputUserProfile';
 // import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import weightLifting from '../screens/weightLifting';
 // import CalendarScreen from '../screens/calendarScreen';
 import HistoryScreen from '../screens/historyScreen';
 import cardio from '../screens/cardio';
-import ViewProfile from '../screens/Pii/ViewProfile';
+
+import UserInfo from '../screens/Pii/ViewUserProfile';
 
 
 import dataNavigator from '../screens/dataNavigatorScreen';
@@ -27,9 +28,9 @@ import weightsDScreen from '../screens/weightsDataScreen';
 const WeightsStack = createStackNavigator({
   Weights: weightLifting,
 },
-{
-  headerMode: 'none',
-});
+  {
+    headerMode: 'none',
+  });
 
 WeightsStack.navigationOptions = {
   tabBarLabel: 'Weight Lifting',
@@ -48,11 +49,11 @@ WeightsStack.navigationOptions = {
 const CardioStack = createStackNavigator({
   Cardio: cardio,
   Profile: Profile,
-  
+
 },
-{
-  headerMode: 'none',
-});
+  {
+    headerMode: 'none',
+  });
 
 CardioStack.navigationOptions = {
   tabBarLabel: 'Cardio',
@@ -65,18 +66,19 @@ CardioStack.navigationOptions = {
 };
 
 const TestStack = createStackNavigator({
-    ViewProfile: ViewProfile,
-    dNS: dataNavigator,
-    cDS: cardioDScreen,
-    wDS: weightsDScreen,
 
-    Test: TestScreen,
-  
-  
+  UserInfo: UserInfo,
+  dNS: dataNavigator,
+  cDS: cardioDScreen,
+  wDS: weightsDScreen,
+
+
+
+
 },
-{
-  headerMode: 'none',
-});
+  {
+    headerMode: 'none',
+  });
 
 TestStack.navigationOptions = {
   tabBarLabel: 'Profile',
@@ -137,10 +139,10 @@ TestStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   TestStack,
-  CardioStack, 
+  CardioStack,
   // UserStack,
   WeightsStack,
- 
-  
- 
+
+
+
 });

@@ -7,48 +7,49 @@ import {
 } from 'react-native';
 import bgImage from '../../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-import dbCall from '../../constants/dbCall';
+import {dbCall} from '../../constants/dbCall';
 import * as firebase from 'firebase';
 
 
-export default class Profile extends React.Component {
+export default class InputUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoading: true }
 
     this.state = {
-      firstName: '',
-      lastName: '',
-      age: '',
-      weight: '',
-      height: '',
+      firstName: null,
+      lastName: null,
+      age: null,
+      weight: null,
+      height: null,
+      gender: null,
       uuid: (firebase.auth().currentUser || {}).uid,
     };
   }
 
 
-  componentDidMount(){
-    return fetch('https://twoticketsdatabase.herokuapp.com/', 
-    {method: 'POST', headers: {Accept: 'application/json', 
-    'Content-Type': 'application/json',}, body: JSON.stringify({query : 'select * from users'}),})
-      .then((response) => response.json())
-      .then((responseJson) => {
 
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson.data,
-        
-        }, function(){
+  onClickListener = () => {
+      if (this.state.firstName != '' && this.state.lastName != '' && this.state.age != '' && this.state.weight != '' && this.state.height != '') {
+      Alert.alert("Congratulations", ""+ this.state.firstName + " you can begin tracking your exercises");
 
-        });
 
-      })
-      .catch((error) =>{
-        console.error(error);
+      var test = 'insert into users (UUID, LastName, FirstName, Height, Weight, Age, Gender) values (\''+ this.state.uuid+ '\',\''+this.state.lastName+'\',\''+this.state.firstName+'\','+this.state.height+','+this.state.weight+','+this.state.age+',\''+this.state.gender+'\');';
+      console.log(test);
+      this.setState({ firstName: '' });
+      this.setState({ lastName: '' });
+      this.setState({ age: '' });
+      this.setState({ weight: '' });
+      this.setState({ height: '' });
+      this.setState({ gender: '' });
+      return dbCall(test, this, function (responseData, component) {
+        // Note: This function will be executed inside of the dbCall function when the API responds with data
       });
+    }
+    else {
+      Alert.alert("You didn't enter all of your personal info!");
+    }
   }
-
-
 
   // <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
   // source={{uri: 'https://png.icons8.com/male-user/ultraviolet/50/3498db'}}/>
@@ -56,11 +57,11 @@ export default class Profile extends React.Component {
 
   render() {
     if (this.state.isLoading) {
-        return (
-            <View style={{ flex: 1, padding: 20 }}>
-                <ActivityIndicator />
-            </View>
-        )
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <ActivityIndicator />
+        </View>
+      )
     }
     return (
       <ImageBackground source={bgImage} style={styles.backgroundContainer}>
@@ -122,6 +123,17 @@ export default class Profile extends React.Component {
                 />
               </View>
 
+              <View style={styles.inputContainer}>
+                <Icon name={'md-person'}
+                  style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
+                <TextInput style={styles.inputs}
+                  placeholder="Gender"
+                  underlineColorAndroid='transparent'
+                  placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
+                  onChangeText={(text) => { this.setState({ gender: text }) }}
+                />
+              </View>
+
               {/* <View style={styles.inputContainer}>
                 <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
                 <Picker
@@ -136,7 +148,8 @@ export default class Profile extends React.Component {
 
 
 
-              <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]} onPress={() => this.onClickListener('sign_up')}>
+              <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]}
+               onPress={() => navigate ('Profile')} onPress={() => this.onClickListener()}>
                 <Text style={styles.signUpText}>Sign up</Text>
               </TouchableHighlight>
             </View>

@@ -53,7 +53,7 @@ export default class LoginScreen extends React.Component {
 
 
   render() {
-    //navitgate pages
+    //navigate pages
     const {navigate} = this.props.navigation;
 
     return (
