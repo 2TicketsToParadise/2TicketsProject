@@ -65,7 +65,7 @@ CardioStack.navigationOptions = {
   ),
 };
 
-const TestStack = createStackNavigator({
+const UserStack = createStackNavigator({
 
   UserInfo: UserInfo,
   dNS: dataNavigator,
@@ -76,11 +76,12 @@ const TestStack = createStackNavigator({
 
 
 },
-  {
-    headerMode: 'none',
-  });
+//   {
+//     headerMode: 'none',
+// }
+);
 
-TestStack.navigationOptions = {
+UserStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -138,7 +139,7 @@ TestStack.navigationOptions = {
 // };
 
 export default createBottomTabNavigator({
-  TestStack,
+  UserStack,
   CardioStack,
   // UserStack,
   WeightsStack,

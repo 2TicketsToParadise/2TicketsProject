@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     Text,
     StyleSheet,
@@ -11,7 +11,13 @@ const { width: WIDTH } = Dimensions.get('window')
 
 export default class calendar extends React.Component {
     static navigationOptions = {
-        title: 'CalendarScreen',
+        title: 'See Your Past Workouts',
+        headerTitleStyle: {
+            // alignSelf: 'center',
+            flex: 1,
+            textAlign: 'center',
+        },
+        headerRight: (<View />)
     };
 
     constructor(props) {
@@ -20,18 +26,18 @@ export default class calendar extends React.Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
+        const { navigate } = this.props.navigation;
 
         return (
-            <ImageBackground source={bgImage} style = {styles.backgroundContainer}>
+            <ImageBackground source={bgImage} style={styles.backgroundContainer}>
                 <ScrollView contentContainerStyle={styles.container}>
                     <TouchableOpacity onPress={this._onPressButton}
-                                      style={styles.btnLogin}  onPress={() => navigate('cDS')}>
+                        style={styles.btnLogin} onPress={() => navigate('cDS')}>
 
                         <Text style={styles.text} >Past Cardio Data</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this._onPressButton}
-                                      style={styles.btnLogin}  onPress={() => navigate('wDS')}>
+                        style={styles.btnLogin} onPress={() => navigate('wDS')}>
 
                         <Text style={styles.text} >Past Weights Data</Text>
                     </TouchableOpacity>
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     btnLogin: {
-        width: (WIDTH/2),
+        width: (WIDTH / 2),
         height: 45,
         borderRadius: 45,
         backgroundColor: 'rgba(70, 70, 70, 0.7)',

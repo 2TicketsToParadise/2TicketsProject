@@ -1,9 +1,22 @@
+//Need to add unique ID for exercises done by user for key
+
 import React from 'react';
 import { FlatList,Text, View, ActivityIndicator } from 'react-native';
 import {dbCall} from '../constants/dbCall';
+import { ListItem, List } from 'react-native-elements';
 import * as firebase from 'firebase';
 
-export default class CallTest extends React.Component {
+export default class CardioDataScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Past Cardio Workouts',
+        headerTitleStyle: {
+            // alignSelf: 'center',
+            flex: 1,
+            textAlign: 'center',
+        },
+        headerRight: (<View />)
+    };
+
     constructor(props) {
         super(props);
         this.state = { isLoading: true };
@@ -43,14 +56,20 @@ export default class CallTest extends React.Component {
         }
 
         return(
-            <View style={{flex: 1, paddingTop:20}}>
+            <List>
                 <FlatList
                     data={this.state.dataSource}
-                    renderItem={({item}) => <Text>{item.cdate}, {item.exerciseid}, {item.duration} time, {item.distance} dist,
-                        {item.speed} speed, {item.heartrate} bpm</Text>}
-                    keyExtractor={({id}, index) => id}
+                    renderItem={({item}) => (
+                    <ListItem
+                        title={item.exerciseid}
+                        subtitle={`${item.cdate} ${item.duration}  ${item.distance}
+                        ${item.speed} ${item.heartrate}`}
+                        />
+        )}
+        //Need to ADD unique exercise ID for user
+                    keyExtractor={item => item.cdate}
                 />
-            </View>
+            </List>
         );
     }
 }

@@ -10,6 +10,16 @@ const { width: WIDTH } = Dimensions.get('window');
 
 
 export default class ViewUserProfile extends React.Component {
+    static navigationOptions = {
+        title: 'Personal Information',
+        headerTitleStyle: {
+            // alignSelf: 'center',
+            flex: 1,
+            textAlign: 'center',
+        },
+        headerRight: (<View />)
+    };
+
     constructor(props) {
         super(props);
         this.state = { isLoading: true }
