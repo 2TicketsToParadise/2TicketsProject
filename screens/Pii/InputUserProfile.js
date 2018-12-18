@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import bgImage from '../../assets/images/background.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {dbCall} from '../../constants/dbCall';
+import { dbCall } from '../../constants/dbCall';
 import * as firebase from 'firebase';
 
 
@@ -30,11 +30,12 @@ export default class InputUserProfile extends React.Component {
 
 
   onClickListener = () => {
-      if (this.state.firstName != '' && this.state.lastName != '' && this.state.age != '' && this.state.weight != '' && this.state.height != '') {
-      Alert.alert("Congratulations", ""+ this.state.firstName + " you can begin tracking your exercises");
+    if (this.state.firstName != null && this.state.lastName != null && this.state.age != null && this.state.weight != null && this.state.height != null) {
+      Alert.alert("Congratulations", "" + this.state.firstName + " you can begin tracking your exercises");
 
+      this.props.navigation.navigate('UserInfo');
 
-      var test = 'insert into users (UUID, LastName, FirstName, Height, Weight, Age, Gender) values (\''+ this.state.uuid+ '\',\''+this.state.lastName+'\',\''+this.state.firstName+'\','+this.state.height+','+this.state.weight+','+this.state.age+',\''+this.state.gender+'\');';
+      var test = 'insert into users (UUID, LastName, FirstName, Height, Weight, Age, Gender) values (\'' + this.state.uuid + '\',\'' + this.state.lastName + '\',\'' + this.state.firstName + '\',' + this.state.height + ',' + this.state.weight + ',' + this.state.age + ',\'' + this.state.gender + '\');';
       console.log(test);
       this.setState({ firstName: '' });
       this.setState({ lastName: '' });
@@ -56,6 +57,8 @@ export default class InputUserProfile extends React.Component {
 
 
   render() {
+
+
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -134,22 +137,8 @@ export default class InputUserProfile extends React.Component {
                 />
               </View>
 
-              {/* <View style={styles.inputContainer}>
-                <Icon name={'md-person'} style={styles.inputIcon} color={'rgba(255, 255, 255, 0.7)'} size={28} />
-                <Picker
-                  selectedValue={this.state.gender}
-                  onValueChange={gender => this.setState({ gender })}
-                  style={{ color: 'rgba(255, 255, 255, 0.7)', width: 260 }}
-                  mode="dropdown">
-                  <Picker.Item label="Male" value="male" />
-                  <Picker.Item label="Female" value="female" />
-                </Picker>
-              </View> */}
-
-
-
               <TouchableHighlight style={[styles.buttonContainer, styles.signupButton]}
-               onPress={() => navigate ('Profile')} onPress={() => this.onClickListener()}>
+                onPress={() => this.onClickListener()} >
                 <Text style={styles.signUpText}>Sign up</Text>
               </TouchableHighlight>
             </View>

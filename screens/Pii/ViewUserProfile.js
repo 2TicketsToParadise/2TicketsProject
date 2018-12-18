@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, Dimensions, Alert, } from 'react-native';
 import { dbCall } from '../../constants/dbCall';
 import * as firebase from 'firebase';
 import SignoutButton from '../../components/AppComponents/SignoutButton';
@@ -17,7 +17,8 @@ export default class ViewUserProfile extends React.Component {
             flex: 1,
             textAlign: 'center',
         },
-        headerRight: (<View />)
+        headerRight: (<View />),
+        headerLeft: (<View />),
     };
 
     constructor(props) {
@@ -35,12 +36,36 @@ export default class ViewUserProfile extends React.Component {
         };
     }
 
+    
+    onButtonPress() {
+        this.props.navigation.navigate("Profile");
+
+    }
 
     componentDidMount() {
+        const { navigate } = this.props.navigation;
+
 
 
         return dbCall('select * from users where UUID = \'' + this.state.uuid + '\';', this, function (responseData, component) {
             // Note: This function will be executed inside of the dbCall function when the API responds with data
+ 
+            if (responseData.length === 0) {
+                console.log("Beep");
+
+                Alert.alert(
+                    'No Profile Data Found',
+                    'Please Enter Your Personal Information Before Continuing',
+                    [
+                        { text: 'Ask me later', onPress: () => navigate('dNS') },
+                        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                        { text: 'OK', onPress: () => navigate('Profile') },
+                    ],
+                    { cancelable: false }
+                )
+                return
+
+            }
 
             // TODO: Add Safety checks -> length of responseData
             var state = {
@@ -53,7 +78,9 @@ export default class ViewUserProfile extends React.Component {
             };
             component.setState(state, function () {
             });
+
         });
+
     }
 
 
@@ -69,12 +96,14 @@ export default class ViewUserProfile extends React.Component {
                 </View>
             )
         }
+
+
         return (
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
 
                 <View style={{ padding: 50, alignItems: 'center' }}>
 
-                    <Text style={{ fontSize: 40, color: 'white' }}>{this.state.firstName} </Text>
+                    <Text style={{ fontSize: 40, color: 'white' }}> {this.state.firstName} </Text>
                     <Text style={{ fontSize: 40, color: 'white' }}> {this.state.lastName}'s </Text>
 
                     <Text style={{ fontSize: 40, color: 'white' }}> Profile Page</Text>
@@ -90,17 +119,18 @@ export default class ViewUserProfile extends React.Component {
 
                     {/* BMI=weight/(height*height) in kg and cm */}
                     {/* BMI=weight/(height*height)*703 in lbs and in */}
-
                     <Text style={styles.textStyle}>BMI: {parseFloat((this.state.weight / (this.state.height * this.state.height)) * 703).toFixed(2)}</Text>
-
-
+                    <View style={{paddingTop: 20}}>
+                        <SignoutButton />
+                    </View>
+                    <View style={{paddingTop: 20 }} />
                     <TouchableOpacity onPress={this._onPressButton}
-                        style={styles.btnLogin} onPress={() => navigate('dNS')}>
+                        style={styles.btnData} onPress={() => navigate('dNS')}>
 
-                        <Text style={styles.text} >Exercise Data</Text>
+                        <Text style={styles.text} >View Your Exercise Data</Text>
                     </TouchableOpacity>
 
-                    <SignoutButton />
+
 
 
 
@@ -122,11 +152,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    btnLogin: {
+    btnData: {
         width: (WIDTH / 2),
         height: 45,
         borderRadius: 45,
-        backgroundColor: 'rgba(70, 70, 70, 0.7)',
+        backgroundColor: 'rgba(34, 167, 240, 1)',
         marginBottom: 20,
     },
     text: {

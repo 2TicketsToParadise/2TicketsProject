@@ -36,7 +36,6 @@ export default class SignupScreen extends React.Component {
                 Alert.alert(error.message);
 
             });
-
     }
 
     onBackToLoginPress = () => {
@@ -45,6 +44,7 @@ export default class SignupScreen extends React.Component {
     }
 
     render() {
+
 
         return (
             <ImageBackground source={bgImage} style={styles.backgroundContainer}>
@@ -82,7 +82,7 @@ export default class SignupScreen extends React.Component {
                     />
                     <View style={{ paddingTop: 10 }} />
 
-                    <Button title='Signup' onPress={this.onSignupPress} />
+                    <Button title='Signup' onPress={this.onSignupPress}  />
                     <View style={{ paddingTop: 10 }} />
 
                     <Button title='Back to Login' onPress={this.onBackToLoginPress} />

@@ -2,6 +2,8 @@ import React from 'react';
 import { FlatList, Text, View, ActivityIndicator } from 'react-native';
 import { dbCall } from '../constants/dbCall';
 import * as firebase from 'firebase';
+import { ListItem, List } from 'react-native-elements';
+
 
 export default class WeightsDataScreen extends React.Component {
     static navigationOptions = {
@@ -28,7 +30,7 @@ export default class WeightsDataScreen extends React.Component {
 
     componentDidMount() {
         var test = 'select * from weights where uuid = \'' + this.state.uuid + '\';';
-        console.log(test);
+        // console.log(test);
         return dbCall(test, this, function (responseData, component) {
             // Note: This function will be executed inside of the dbCall function when the API responds with data
 
@@ -54,7 +56,7 @@ export default class WeightsDataScreen extends React.Component {
         }
 
         return (
-            <View style={{ flex: 1, paddingTop: 20 }}>
+            <List>
                 <FlatList
                     data={this.state.dataSource}
                     renderItem={({ item }) => (
@@ -64,9 +66,9 @@ export default class WeightsDataScreen extends React.Component {
                         ${item.reps} ${item.onerepmax}`}
                         />
                     )}
-                    keyExtractor={item => wdate}
+                    keyExtractor={item => item.wdate}
                 />
-            </View>
+            </List>
         );
     }
 }

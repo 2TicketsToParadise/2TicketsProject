@@ -5,6 +5,7 @@ import MainTabNavigator from './MainTabNavigator';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import SignupScreen from './../screens/Auth/SignupScreen';
 import ForgotPasswordScreen from './../screens/Auth/ForgotPasswordScreen';
+import InputUserProfile from '../screens/Pii/InputUserProfile';
 
 
 export default createSwitchNavigator({
@@ -13,6 +14,7 @@ export default createSwitchNavigator({
   Login: { screen: LoginScreen }, 
   Signup: { screen: SignupScreen }, 
   ForgotPassword: { screen: ForgotPasswordScreen }, 
+  ProfileInput: {screen: InputUserProfile},
 
 
   Main: MainTabNavigator,

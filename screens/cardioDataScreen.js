@@ -1,8 +1,8 @@
 //Need to add unique ID for exercises done by user for key
 
 import React from 'react';
-import { FlatList,Text, View, ActivityIndicator } from 'react-native';
-import {dbCall} from '../constants/dbCall';
+import { FlatList, Text, View, ActivityIndicator } from 'react-native';
+import { dbCall } from '../constants/dbCall';
 import { ListItem, List } from 'react-native-elements';
 import * as firebase from 'firebase';
 
@@ -24,14 +24,14 @@ export default class CardioDataScreen extends React.Component {
         this.state = {
             uuid: (firebase.auth().currentUser || {}).uid,
             exerciseid: '',
-            dataSource:''
+            dataSource: ''
         };
     }
 
     componentDidMount() {
-        var test = 'select * from cardio where uuid = \''+this.state.uuid+'\';' ;
-        console.log(test);
-        return dbCall(test,this, function( responseData,component ) {
+        var test = 'select * from cardio where uuid = \'' + this.state.uuid + '\';';
+        // console.log(test);
+        return dbCall(test, this, function (responseData, component) {
             // Note: This function will be executed inside of the dbCall function when the API responds with data
 
             // TODO: Add Safety checks -> length of responseData
@@ -40,33 +40,33 @@ export default class CardioDataScreen extends React.Component {
                 dataSource: responseData
             };
 
-            component.setState(state, function() {});
+            component.setState(state, function () { });
         });
 
     }
 
-    render(){
+    render() {
 
-        if(this.state.isLoading){
-            return(
-                <View style={{flex: 1, padding: 20}}>
-                    <ActivityIndicator/>
+        if (this.state.isLoading) {
+            return (
+                <View style={{ flex: 1, padding: 20 }}>
+                    <ActivityIndicator />
                 </View>
             )
         }
 
-        return(
+        return (
             <List>
                 <FlatList
                     data={this.state.dataSource}
-                    renderItem={({item}) => (
-                    <ListItem
-                        title={item.exerciseid}
-                        subtitle={`${item.cdate} ${item.duration}  ${item.distance}
+                    renderItem={({ item }) => (
+                        <ListItem
+                            title={item.exerciseid}
+                            subtitle={`${item.cdate} ${item.duration}  ${item.distance}
                         ${item.speed} ${item.heartrate}`}
                         />
-        )}
-        //Need to ADD unique exercise ID for user
+                    )}
+                    //Need to ADD unique exercise ID for user
                     keyExtractor={item => item.cdate}
                 />
             </List>
