@@ -37,7 +37,7 @@ FirebaseConfig: {
         messagingSenderId: " ",
   }
 ```
-- in canstants/dbCalls add your Postgress database for the workout tracking:
+- in constants/dbCalls add your Postgress database for the workout tracking:
 ```
 return fetch('<Your Database Address Here>'
 ```
