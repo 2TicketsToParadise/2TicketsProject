@@ -1,6 +1,6 @@
 # Exercise Tracker
 > by 2TicketToParadise
-## An app designed to help you tracker your workout progress.
+## An app designed to help you track your workout progress.
 This app is designed to help you track your workouts. 
 You can track your workouts in two categories; weights and cardio. 
 You can see all of you previous workouts in the tracker screen.
